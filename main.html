@@ -18,7 +18,7 @@
 	function loginOrSignup() {
 		chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
 		if (chosen.localeCompare("signup") == 0) {
-			document.getElementById("displayHeader").text = "\"SIGN UP\"";
+			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\"";
 		} else if (chosen.localeCompare("login") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"LOG IN\"";
 		}
@@ -36,7 +36,7 @@
 </script>
 <html>
 	<body onload="main()">
-			<span id="displayHeader" class="helveticaLarge">default title</span>
+			<text id="displayHeader" class="helveticaLarge">default title</text>
 	</body>
 
 </html>
