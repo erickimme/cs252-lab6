@@ -18,7 +18,7 @@
 	function loginOrSignup() {
 		chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
 		if (chosen.localeCompare("signup") == 0) {
-			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\"";
+			document.getElementById("displayHeader").innerHTML = "<text id=displayHeader class=helveticaLarge>\"SIGN UP\"</text>";
 		} else if (chosen.localeCompare("login") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"LOG IN\"";
 		}
