@@ -14,11 +14,11 @@
 <script>
 	function loginOrSignup() {
 		chosen = getParameterByName("method").toLocaleLowercase();
-		document.getElementById("test").innerHTML = "IM IN!"
+		document.getElementById("test").innerHTML = "IM IN!";
 		if (chosen.localeCompare("signup") == 0) {
-			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\""
+			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\"";
 		} else if (chosen.localeCompare("login") == 0) {
-			document.getElementById("displayHeader").innerHTML = "\"LOG IN\""
+			document.getElementById("displayHeader").innerHTML = "\"LOG IN\"";
 		}
 	}
 
@@ -30,7 +30,7 @@
 <html>
 	<body>
 			<p id="displayHeader" class="helveticaLarge">"hardcode"</p>
-			<p id="test" class="helveticaLarge">"also hard coded"</p>
+			<p class="test""also hard coded"</p>
 
 	</body>
 
