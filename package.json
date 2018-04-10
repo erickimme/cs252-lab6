@@ -1,0 +1,20 @@
+{
+  "name": "cs252-lab6",
+  "version": "1.0.0",
+  "description": "An onslaught of diction",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericzhvng/cs252-lab6.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericzhvng/cs252-lab6/issues"
+  },
+  "homepage": "https://github.com/ericzhvng/cs252-lab6#readme"
+}
