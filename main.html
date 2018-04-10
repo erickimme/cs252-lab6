@@ -1,11 +1,11 @@
 <!doctype html>
 <style>
-	p.helveticaLarge {
+	.helveticaLarge {
 		font-family: "helvetica", "sans-serif";
 		font-size: 18pt;
 		font-weight: bold;
 	}
-	p.helveticaSmall {
+	.helveticaSmall {
 		font-family: "helvetica", "sans-serif";
 		font-size: 10pt;
 		font-weight: bold;
@@ -23,6 +23,8 @@
 
 		} else if (chosen.localeCompare("login") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"LOG IN\"";
+			document.getElementById("displayHeader").setAttribute("class", "helveticaLarge");
+
 		}
 	}
 
