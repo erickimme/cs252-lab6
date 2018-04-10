@@ -13,7 +13,8 @@
 </style>
 <script>
 	function loginOrSignup() {
-		chosen = getParameterByName("method", window.location.href).toLocaleLowercase();
+		chosen = getParameterByName("method").toLocaleLowercase();
+		document.getElementById("test").innerHTML = "IM IN!"
 		if (chosen.localeCompare("signup") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\""
 		} else if (chosen.localeCompare("login") == 0) {
@@ -21,20 +22,16 @@
 		}
 	}
 
-	function getParameterByName(name, url) {
-		return url;
-	    // if (!url) url = window.location.href;
-	    // name = name.replace(/[\[\]]/g, "\\$&");
-	    // var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-	    //     results = regex.exec(url);
-	    // if (!results) return null;
-	    // if (!results[2]) return '';
-	    // return decodeURIComponent(results[2].replace(/\+/g, " "));
+	function getParameterByName(name) {
+    	var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    	return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 	}
 </script>
 <html>
 	<body>
-			<p id="displayHeader" p class = "helveticaLarge">"hardcode"</p>
+			<p id="displayHeader" class="helveticaLarge">"hardcode"</p>
+			<p id="test" class="helveticaLarge">"also hard coded"</p>
+
 	</body>
 
 </html>
