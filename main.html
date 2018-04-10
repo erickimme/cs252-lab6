@@ -2,7 +2,7 @@
 <style>
 	p.helveticaLarge {
 		font-family: "helvetica", "sans-serif";
-		font-size: 20pt;
+		font-size: 18pt;
 		font-weight: bold;
 	}
 	p.helveticaSmall {
@@ -11,17 +11,9 @@
 		font-weight: bold;
 	}
 </style>
-<html>
-	<body>
-		    <text>"Welcome to main app"</p></text>
-			<text><p class = "helveticaLarge">"title"<span id="displayHeader"></span></text>
-	</body>
-
-</html>
-
 <script>
-	function loginOrSignup(url) {
-		chosen = getParameterByName("method", url).toLocaleLowercase();
+	function loginOrSignup() {
+		chosen = getParameterByName("method", window.location.href).toLocaleLowercase();
 		if (chosen.localeCompare("signup") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\""
 		} else if (chosen.localeCompare("login") == 0) {
@@ -39,3 +31,10 @@
 	    return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
 </script>
+<html>
+	<body>
+		    <text>"Welcome to main app"</p></text>
+			<text><p class = "helveticaLarge"><span id="displayHeader"></span></text>
+	</body>
+
+</html>
