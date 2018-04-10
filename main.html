@@ -20,7 +20,7 @@
 		if (chosen.localeCompare("signup") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\"";
 		} else if (chosen.localeCompare("login") == 0) {
-			document.getElementById("displayHeader").innerHTML = "\"LOG IN\"";
+			document.getElementById("displayHeader").span.text = "\"LOG IN\"";
 		}
 	}
 
@@ -36,7 +36,7 @@
 </script>
 <html>
 	<body onload="main()">
-			<text id="displayHeader" class="helveticaLarge">"hardcode"</text>
+			<text id="displayHeader" class="helveticaLarge"><span>default title</span></text>
 	</body>
 
 </html>
