@@ -1,7 +1,41 @@
 <!doctype html>
+<style>
+	p.helveticaLarge {
+		font-family: "helvetica", "sans-serif";
+		font-size: 20pt;
+		font-weight: bold;
+	}
+	p.helveticaSmall {
+		font-family: "helvetica", "sans-serif";
+		font-size: 10pt;
+		font-weight: bold;
+	}
+</style>
 <html>
 	<body>
-		    <text>"main page"</p></text>
+		    <text>"Welcome to main app"</p></text>
+			<text><p class = "helveticaLarge"><span id="displayHeader"></span></text>
 	</body>
 
 </html>
+
+<script>
+	function loginOrSignup(url) {
+		chosen = getParameterByName("method", url).toLocaleLowercase();
+		if (chosen.localeCompare("signup") == 0) {
+			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\""
+		} else if (chosen.localeCompare("login") == 0) {
+			document.getElementById("displayHeader").innerHTML = "\"LOG IN\""
+		}
+	}
+
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+</script>
