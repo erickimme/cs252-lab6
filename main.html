@@ -26,10 +26,19 @@
 		if (chosen.localeCompare("signup") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\"";
 			document.getElementById("displayHeader").setAttribute("class", "helveticaLarge");
+			document.getElementById("username").innerHTML = USERNAME
+			document.getElementById("username").setAttribute("class", "helveticaSmall")
+			document.getElementById("email").innerHTML = EMAIL
+			document.getElementById("email").setAttribute("class", "helveticaSmall")
+			document.getElementById("password").innerHTML = PASSWORD
+			document.getElementById("password").setAttribute("class", "helveticaSmall")
+
 
 		} else if (chosen.localeCompare("login") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"LOG IN\"";
 			document.getElementById("displayHeader").setAttribute("class", "helveticaLarge");
+
+
 
 		}
 	}
@@ -49,6 +58,12 @@
 	<body onload="main()">
 			<table id="tbl_wrap"><tbody><tr><td id="td_wrap">
 			<text id="displayHeader" class="helveticaLarge"></text>
+			<text id="username"></text>
+			<input type = "text" name = "usernameField"> <br>
+			<text id="email"></text>
+			<input type = "text" name = "emailField"> <br>
+			<text id="password"></text>
+			<input type = "password" name = "passwordField"> <br>
 	</body>
 
 </html>
