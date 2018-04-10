@@ -18,9 +18,11 @@
 	function loginOrSignup() {
 		chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
 		if (chosen.localeCompare("signup") == 0) {
-			document.getElementById("displayHeader").innerHTML = "<text id=displayHeader class=helveticaLarge>\"SIGN UP\"</text>";
+			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\"";
+			document.getElementById("displayHeader").classList.toggle('helveticaLarge');
+
 		} else if (chosen.localeCompare("login") == 0) {
-			document.getElementById("displayHeader").value = "\"LOG IN\"";
+			document.getElementById("displayHeader").innerHTML = "\"LOG IN\"";
 		}
 	}
 
