@@ -111,16 +111,13 @@
 			document.getElementById("username").innerHTML = "USERNAME";
 			document.getElementById("username").setAttribute("class", "helveticaSmall");
 
-			document.getElementById("email").innerHTML = "EMAIL";
+			document.getElementById("email").innerHTML = "EMAILADDR";
 			document.getElementById("email").setAttribute("class", "helveticaSmall");
 
 			document.getElementById("password").innerHTML = "PASSWORD";
 			document.getElementById("password").setAttribute("class", "helveticaSmall");
 
 			document.getElementById("submitBtn").setAttribute("class", "btn submitBlue");
-			// document.getElementById("submitBtn").onclick = function() {
-			// 	window.location.href = "game.html";
-			// };
 		} else if (chosen.localeCompare("login") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"LOG IN\"";
 			document.getElementById("displayHeader").setAttribute("class", "helveticaLarge");
@@ -128,12 +125,15 @@
 			document.getElementById("username").innerHTML = "USERNAME";
 			document.getElementById("username").setAttribute("class", "helveticaSmall");
 
+			document.getElementById("email").innerHTML = "EMAILADDR";
+			document.getElementById("email").setAttribute("class", "helveticaSmall");
+
 			document.getElementById("password").innerHTML = "PASSWORD";
 			document.getElementById("password").setAttribute("class", "helveticaSmall");
 
-			var elem = document.getElementById("email");
+			var elem = document.getElementById("username");
 			elem.parentNode.removeChild(elem);
-			elem = document.getElementById("emailField");
+			elem = document.getElementById("usernameField");
 			elem.parentNode.removeChild(elem);
 			elem = document.getElementById("optionalNewLine1");
 			elem.parentNode.removeChild(elem);
@@ -142,6 +142,10 @@
 
 			document.getElementById("submitBtn").setAttribute("class", "btn submitRed");
 		}
+
+		 document.getElementById("submitBtn").onclick = function() {
+		 	window.location.href = "game.html";
+		 };
 	}
 
 </script>
@@ -295,7 +299,7 @@
 			<div>
 				<p class="align">
 					<text id="username"></text>
-					<input type="text" name="usernameField">
+					<input id ="usernameField" type="text" name="usernameField">
 				</p>
 				<p class="align">
 					<br id="optionalNewLine2"><text id="email"></text>
@@ -306,7 +310,7 @@
 					<input type="password" name="passwordField">
 				</p>
 				<p>
-					<button class="btn" id="submitBtn" onclick="window.location.href='game.html'"><p class="helveticaSmall">"SUBMIT"</button>
+					<button class="btn" id="submitBtn" onclick="window.location.href='game.html'"><p class="helveticaSmall">SUBMIT</button>
 				</p>
 			</div>
 		</form>
