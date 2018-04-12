@@ -157,6 +157,42 @@
 	    if (!results[2]) return '';
 	    return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
+
+  function firebaseAction() {
+    chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
+    if (chosen.localeCompare("signup") == 0) {
+      var email = document.getElementById('emailField').value;
+      var password = document.getElementById('passwordField').value;
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == 'auth/weak-password') {
+          alert('The password is too weak.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
+    } else if (chosen.localeCompare("login") == 0) {
+      var email = document.getElementById('emailField').value;
+      var password = document.getElementById('passwordField').value;
+      firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode === 'auth/wrong-password') {
+          alert('Wrong password.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+        // [END_EXCLUDE]
+      });
+    }
+  }
+
 </script>
 </head>
 <html>
@@ -178,7 +214,7 @@
 					<input type="password" name="passwordField">
 				</p>
 				<p>
-					<button class="btn" id="submitBtn" onclick="window.location.href='game.html'"><p class="helveticaSmall">SUBMIT</button>
+					<button class="btn" id="submitBtn" onclick="firebaseAction();"><p class="helveticaSmall">SUBMIT</button>
 				</p>
 			</div>
 		</form>
