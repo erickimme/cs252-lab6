@@ -74,9 +74,14 @@
       	color: lightskyblue;
     }
 
+ 	.submitBlue:focus {outline:0;}
+
+
     .submitRed:hover {
     	color: salmon;
     }
+
+	.submitRed:focus {outline:0;}
 
 </style>
 <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
@@ -135,7 +140,7 @@
 			elem = document.getElementById("optionalNewLine2");
 			elem.parentNode.removeChild(elem);
 
-			//document.getElementById("submitBtn").setAttribute("class", "btn submitRed");
+			document.getElementById("submitBtn").setAttribute("class", "btn submitRed");
 		}
 	}
 
