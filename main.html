@@ -2,9 +2,17 @@
 <head>
 <style>
     <!--
-    html, body, #tbl_wrap { height: 75%; width: 100%; padding: 0; margin: 0; }
+    html, body, #tbl_wrap { height: 95%; width: 100%; padding: 0; margin: 0; }
     #td_wrap { vertical-align: middle; text-align: center; }
     -->
+
+	.form-style{
+	    max-width:400px;
+	    margin:10px auto;
+	    background:#fff;
+	    border-radius:2px;
+	    padding:2px;
+	}
 
 	.helveticaLarge {
 		font-family: "helvetica", "sans-serif";
@@ -16,6 +24,60 @@
 		font-size: 10pt;
 		font-weight: bold;
 	}
+
+	p {
+		margin-top: 0.5em;
+		margin-bottom: 0;
+	}
+
+	div {
+		text-align: center;
+		text-justify: inter-word;
+	}
+
+	input, textarea, button {
+		margin: 0;
+		-webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+     	-moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+        box-sizing: border-box;
+	}
+
+	input[type=text] {
+	    padding: 6px 10px;
+	    box-sizing: border-box;
+	}
+	input[type=password] {
+	    padding: 6px 10px;
+	    box-sizing: border-box;
+	}
+
+	.btn {
+        border: none;
+        background-color: inherit;
+        padding: 12px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .submitBlue{
+      	background-color: white;
+      	color: black;
+    }
+
+    .submitRed{
+      	background-color: white;
+      	color: black;
+    }
+
+    .submitBlue:hover {
+      	color: lightskyblue;
+    }
+
+    .submitRed:hover {
+    	color: salmon;
+    }
+
 </style>
 <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
 <script>
@@ -34,6 +96,7 @@
 	function main() {
 		loginOrSignup();
 	}
+
 	function loginOrSignup() {
 		chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
 		if (chosen.localeCompare("signup") == 0) {
@@ -49,6 +112,10 @@
 			document.getElementById("password").innerHTML = "PASSWORD";
 			document.getElementById("password").setAttribute("class", "helveticaSmall");
 
+			document.getElementById("submitBtn").setAttribute("class", "btn submitBlue");
+			// document.getElementById("submitBtn").onclick = function() {
+			// 	window.location.href = "game.html";
+			// };
 		} else if (chosen.localeCompare("login") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"LOG IN\"";
 			document.getElementById("displayHeader").setAttribute("class", "helveticaLarge");
@@ -63,10 +130,15 @@
 			elem.parentNode.removeChild(elem);
 			elem = document.getElementById("emailField");
 			elem.parentNode.removeChild(elem);
-			elem = document.getElementById("optionalNewLine");
+			elem = document.getElementById("optionalNewLine1");
 			elem.parentNode.removeChild(elem);
+			elem = document.getElementById("optionalNewLine2");
+			elem.parentNode.removeChild(elem);
+
+			//document.getElementById("submitBtn").setAttribute("class", "btn submitRed");
 		}
 	}
+
 </script>
 <script>
 
@@ -212,17 +284,26 @@
 </head>
 <html>
 	<body onload="main()">
-			<table id="tbl_wrap"><tbody><tr><td id="td_wrap">
-			<p><text id="displayHeader" class="helveticaLarge"></text></p>
-
-			<form>
-				<text id="username"></text>
-				<input type = "text" name = "usernameField">
-				<br><text id="email"></text>
-				<input id="emailField" type = "text" name = "emailField">
-				<br id = "optionalNewLine"><text id="password"></text>
-				<input type = "password" name = "passwordField">
-			</form>
+		<table id="tbl_wrap"><tbody><tr><td id="td_wrap">
+		<p><text id="displayHeader" class="helveticaLarge"></text></p>
+		<form method="post" class="form-style">
+			<div>
+				<p class="align">
+					<text id="username"></text>
+					<input type="text" name="usernameField">
+				</p>
+				<p class="align">
+					<br id="optionalNewLine2"><text id="email"></text>
+					<input id="emailField" type="text" name="emailField">
+				</p>
+				<p class="align">
+					<br id = "optionalNewLine1"><text id="password"></text>
+					<input type="password" name="passwordField">
+				</p>
+				<p>
+					<button class="btn" id="submitBtn" onclick="window.location.href='game.html'"><p class="helveticaSmall">"SUBMIT"</button>
+				</p>
+			</div>
+		</form>
 	</body>
-
 </html>
