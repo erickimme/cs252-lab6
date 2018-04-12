@@ -143,9 +143,14 @@
 			document.getElementById("submitBtn").setAttribute("class", "btn submitRed");
 		}
 
-		 document.getElementById("submitBtn").onclick = function() {
-		 	window.location.href = "game.html";
-		 };
+    var butt = document.getElementById("submitBtn");
+    butt.onclick = handler;
+    function handler() {
+      window.location.assign("game.html");
+      return false;
+      alert(window.location);
+     // window.location.href = "file:///Users/Andrew/Documents/vernacular/game.html"
+    }
 	}
 
 </script>
@@ -310,7 +315,7 @@
 					<input type="password" name="passwordField">
 				</p>
 				<p>
-					<button class="btn" id="submitBtn" onclick="window.location.href='game.html'"><p class="helveticaSmall">SUBMIT</button>
+					<button class="btn" id="submitBtn"><p class="helveticaSmall">SUBMIT</button>
 				</p>
 			</div>
 		</form>
