@@ -39,22 +39,36 @@
 		if (chosen.localeCompare("signup") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\"";
 			document.getElementById("displayHeader").setAttribute("class", "helveticaLarge");
-			document.getElementById("username").innerHTML = USERNAME
-			document.getElementById("username").setAttribute("class", "helveticaSmall")
-			document.getElementById("email").innerHTML = EMAIL
-			document.getElementById("email").setAttribute("class", "helveticaSmall")
-			document.getElementById("password").innerHTML = PASSWORD
-			document.getElementById("password").setAttribute("class", "helveticaSmall")
 
+			document.getElementById("username").innerHTML = "USERNAME";
+			document.getElementById("username").setAttribute("class", "helveticaSmall");
+
+			document.getElementById("email").innerHTML = "EMAIL";
+			document.getElementById("email").setAttribute("class", "helveticaSmall");
+
+			document.getElementById("password").innerHTML = "PASSWORD";
+			document.getElementById("password").setAttribute("class", "helveticaSmall");
 
 		} else if (chosen.localeCompare("login") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"LOG IN\"";
 			document.getElementById("displayHeader").setAttribute("class", "helveticaLarge");
 
+			document.getElementById("username").innerHTML = "USERNAME";
+			document.getElementById("username").setAttribute("class", "helveticaSmall");
 
+			document.getElementById("password").innerHTML = "PASSWORD";
+			document.getElementById("password").setAttribute("class", "helveticaSmall");
 
+			var elem = document.getElementById("email");
+			elem.parentNode.removeChild(elem);
+			elem = document.getElementById("emailField");
+			elem.parentNode.removeChild(elem);
+			elem = document.getElementById("optionalNewLine");
+			elem.parentNode.removeChild(elem);
 		}
 	}
+</script>
+<script>
 
 	function getParameterByName(name, url) {
 	    if (!url) url = window.location.href;
@@ -199,11 +213,16 @@
 <html>
 	<body onload="main()">
 			<table id="tbl_wrap"><tbody><tr><td id="td_wrap">
-			<text id="displayHeader" class="helveticaLarge"></text>
-			<text id="email"></text>
-			<input type = "text" name = "emailField"> <br>
-			<text id="password"></text>
-			<input type = "password" name = "passwordField"> <br>
+			<p><text id="displayHeader" class="helveticaLarge"></text></p>
+
+			<form>
+				<text id="username"></text>
+				<input type = "text" name = "usernameField">
+				<br><text id="email"></text>
+				<input id="emailField" type = "text" name = "emailField">
+				<br id = "optionalNewLine"><text id="password"></text>
+				<input type = "password" name = "passwordField">
+			</form>
 	</body>
 
 </html>
