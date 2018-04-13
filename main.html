@@ -180,13 +180,16 @@
   function firebaseAction() {
     chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
     if (chosen.localeCompare("signup") == 0) {
+      alert("signin page");
       toggleSignIn();
     } else if (chosen.localeCompare("login") == 0) {
+      alert("login page");
       handleSignUp();
     }
   }
 
   function toggleSignIn() {
+    alert("signin reached");
     if (firebase.auth().currentUser) {
       // [START signout]
       firebase.auth().signOut();
@@ -224,7 +227,7 @@
   }
 
   function handleSignUp() {
-    console.log("SIGNUP REACHED");
+    alert("signup reached");
     var email = document.getElementById('emailField').value;
     var password = document.getElementById('passwordField').value;
     if (email.length < 4) {
