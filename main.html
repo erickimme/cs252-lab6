@@ -100,6 +100,7 @@
 <script>
 	function main() {
     //document.getElementById('submitBtn').addEventListener('click', firebaseAction, false);
+    alert("in main");
 		loginOrSignup();
 	}
 
@@ -155,8 +156,14 @@
       }
     } else {
       // No user is signed in.
+      alert("setAction");
       var butt = document.getElementById("submitBtn");
-      butt.onclick = firebaseAction;
+      butt.onclick = handler;
+      function handler() {
+        alert("in handler");
+        firebaseAction();
+        return false;
+      }
     }
 	}
 
