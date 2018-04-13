@@ -180,24 +180,6 @@
       handleSignUp();
     } else if (chosen.localeCompare("login") == 0) {
       toggleSignIn();
-      var user = firebase.auth().currentUser;
-      if (user) {
-        // User is signed in.
-        var butt = document.getElementById("submitBtn");
-        butt.onclick = handler;
-        function handler() {
-          window.location.assign("landing.html");
-          return false;
-        }
-      } else {
-        // No user is signed in.
-        var butt = document.getElementById("submitBtn");
-        butt.onclick = handler;
-        function handler() {
-          firebaseAction();
-          return false;
-        }
-      }
     }
   }
 
@@ -234,7 +216,24 @@
         // [END_EXCLUDE]
       });
       // [END authwithemail]
-
+      var user = firebase.auth().currentUser;
+      if (user) {
+        // User is signed in.
+        var butt = document.getElementById("submitBtn");
+        butt.onclick = handler;
+        function handler() {
+          window.location.assign("landing.html");
+          return false;
+        }
+      } else {
+        // No user is signed in.
+        var butt = document.getElementById("submitBtn");
+        butt.onclick = handler;
+        function handler() {
+          firebaseAction();
+          return false;
+        }
+      }
     }
     document.getElementById('submitBtn').disabled = true;
   }
