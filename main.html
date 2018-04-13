@@ -227,12 +227,7 @@
         }
       } else {
         // No user is signed in.
-        var butt = document.getElementById("submitBtn");
-        butt.onclick = handler;
-        function handler() {
-          firebaseAction();
-          return false;
-        }
+        alert("User not authenticated");
       }
     }
     //document.getElementById('submitBtn').disabled = true;
