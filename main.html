@@ -181,10 +181,10 @@
     chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
     if (chosen.localeCompare("signup") == 0) {
       alert("signin page");
-      toggleSignIn();
+      handleSignUp();
     } else if (chosen.localeCompare("login") == 0) {
       alert("login page");
-      handleSignUp();
+      toggleSignIn();
     }
   }
 
