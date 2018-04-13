@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<head>
+ 	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<style>
+	.helveticaVeryLarge {
+		font-family: "helvetica", "sans-serif";
+		font-size: 25pt;
+		font-weight: bold;
+	}
+	.helveticaSmall {
+		font-family: "helvetica", "sans-serif";
+		font-size: 10pt;
+		font-weight: bold;
+	}
+
+	.topright { position: absolute; top: : 5px; right: 15px; text-align: right;}
+
+    .btn1 {
+        border: none;
+        background-color: inherit;
+        padding: 12px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .logOut {
+      background-color: white;
+      color: black;
+    }
+
+    .logOut:hover {
+      color: grey;
+    }
+
+    .logOut:focus {outline:0;}
+
+    .startGame {
+      background-color: white;
+      color: black;
+    }
+
+    .startGame:hover {
+      color: salmon;
+    }
+
+    .startGame:focus {outline:0;}
+
+    .wrapper {
+    	text-align: center;
+    }
+
+    .btn2 {
+    	position: absolute;
+    	top: 43%;
+    	right: 60%;
+    	border: none;
+        background-color: inherit;
+        padding: 12px 12px;
+        cursor: pointer;
+        display: inline-block;
+        outline: 0;
+    }
+
+	body {
+	      position: relative;
+	  }
+	  ul.nav-pills {
+	      top: 20px;
+	      position: fixed;
+	  }
+	  div.col-sm-9 div {
+	      height: 250px;
+	      font-size: 28px;
+	  }
+	  #section1 {color: #fff; background-color: #1E88E5;}
+	  #section2 {color: #fff; background-color: #673ab7;}
+	  #section3 {color: #fff; background-color: #ff9800;}
+	  
+	  @media screen and (max-width: 810px) {
+	    #section1, #section2, #section3, #section41, #section42  {
+	        margin-left: 150px;
+	    }
+	}
+
+	</style>
+	<script>
+
+	</script>
+</head>
+<html>
+	<body>
+		<button class="btn1 logOut topright" onclick="window.location.href='index.html'"><p class = "helveticaSmall">LOGOUT</button>
+		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">START "NEW GAME"</button>
+	</body>
+	<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+		<div class="container">
+			<div class="row">
+				<nav class="col-sm-3" id="myScrollspy">
+					<ul class="nav nav-pills nav-stacked">
+						<li class="active"><a href="#section1">Section 1</a></li>
+						<li><a href="#section2">Section 2</a></li>
+						<li><a href="#section3">Section 3</a></li>
+					</ul>
+				</nav>
+				<div class="col-sm-9">
+					<div id="section1">    
+						<h1>Section 1</h1>
+						<p>1st block</p>
+					</div>
+					<div id="section2"> 
+						<h1>Section 2</h1>
+						<p>second block</p>
+					</div>        
+					<div id="section3">         
+						<h1>Section 3</h1>
+						<p>third block</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
