@@ -16,6 +16,12 @@
 		font-weight: bold;
 	}
 
+	.helveticaMedium {
+		font-family: "helvetica", "sans-serif";
+		font-size: 14pt;
+		font-weight: bold;
+	}
+
 	.topright { position: absolute; top: : 5px; right: 15px; text-align: right;}
 
     .btn1 {
@@ -33,11 +39,10 @@
     }
 
     .logOut:hover {
-      color: grey;
+      color: lightgrey;
     }
 
-    .logOut:focus {outline:0;}
-
+    
     .startGame {
       background-color: white;
       color: black;
@@ -55,8 +60,8 @@
 
     .btn2 {
     	position: absolute;
-    	top: 43%;
-    	right: 60%;
+    	top: 53%;
+    	right: 68%;
     	border: none;
         background-color: inherit;
         padding: 12px 12px;
@@ -65,26 +70,21 @@
         outline: 0;
     }
 
-	body {
-	      position: relative;
-	  }
-	  ul.nav-pills {
-	      top: 20px;
-	      position: fixed;
-	  }
-	  div.col-sm-9 div {
-	      height: 250px;
-	      font-size: 28px;
-	  }
-	  #section1 {color: #fff; background-color: #1E88E5;}
-	  #section2 {color: #fff; background-color: #673ab7;}
-	  #section3 {color: #fff; background-color: #ff9800;}
-	  
-	  @media screen and (max-width: 810px) {
-	    #section1, #section2, #section3, #section41, #section42  {
-	        margin-left: 150px;
-	    }
-	}
+    .stats {
+    	margin-left: auto;
+    	margin-right: auto;
+    	position: absolute;
+    	top: 45%;
+    	right: 26%;
+    }
+
+    th, td {
+    	text-align: left;
+    }
+
+    tr:hover {
+    	color:lightskyblue;
+    }
 
 	</style>
 	<script>
@@ -94,33 +94,27 @@
 <html>
 	<body>
 		<button class="btn1 logOut topright" onclick="window.location.href='index.html'"><p class = "helveticaSmall">LOGOUT</button>
-		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">START "NEW GAME"</button>
-	</body>
-	<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
-		<div class="container">
-			<div class="row">
-				<nav class="col-sm-3" id="myScrollspy">
-					<ul class="nav nav-pills nav-stacked">
-						<li class="active"><a href="#section1">Section 1</a></li>
-						<li><a href="#section2">Section 2</a></li>
-						<li><a href="#section3">Section 3</a></li>
-					</ul>
-				</nav>
-				<div class="col-sm-9">
-					<div id="section1">    
-						<h1>Section 1</h1>
-						<p>1st block</p>
-					</div>
-					<div id="section2"> 
-						<h1>Section 2</h1>
-						<p>second block</p>
-					</div>        
-					<div id="section3">         
-						<h1>Section 3</h1>
-						<p>third block</p>
-					</div>
-				</div>
-			</div>
-		</div>
+		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">"START"</button>
+
+		<text class="stats"><p class="helveticaMedium">"STATS"</text>
+			<table>
+				<tr>
+					<th>LONGEST: </th>
+					<th>LONGDICTION(nya~ im a cat desuu)</th>
+				</tr>
+				<tr>
+					<th>WINS: </th>
+					<th>13(senpaiiiiii)</th>
+				</tr>
+				<tr>
+					<th>LOSSES: </th>
+					<th>24(kimochiiiii)</th>
+				</tr>
+				<tr>
+					<th>AVGLENGTH: </th>
+					<th>5.67(change me uwu~~~)</th>
+				</tr>
+			</table>
+		</p>
 	</body>
 </html>
