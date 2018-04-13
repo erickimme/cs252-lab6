@@ -99,6 +99,7 @@
 </script>
 <script>
 	function main() {
+    //document.getElementById('submitBtn').addEventListener('click', firebaseAction, false);
 		loginOrSignup();
 	}
 
@@ -143,11 +144,24 @@
 			document.getElementById("submitBtn").setAttribute("class", "btn submitRed");
 		}
 
-    var butt = document.getElementById("submitBtn");
-    butt.onclick = handler;
-    function handler() {
-      window.location.assign("landing.html");
-      return false;
+    var user = firebase.auth().currentUser;
+    if (user) {
+      // User is signed in.
+      var butt = document.getElementById("submitBtn");
+      butt.onclick = handler;
+      function handler() {
+        window.location.assign("landing.html");
+        return false;
+      }
+    } else {
+      // No user is signed in.
+      var butt = document.getElementById("submitBtn");
+      butt.onclick = handler;
+      function handler() {
+        alert("in handler");
+        firebaseAction();
+        return false;
+      }
     }
 	}
 
@@ -160,6 +174,91 @@
 	    if (!results[2]) return '';
 	    return decodeURIComponent(results[2].replace(/\+/g, " "));
 	}
+
+  function firebaseAction() {
+    chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
+    if (chosen.localeCompare("signup") == 0) {
+      alert("signup page");
+      handleSignUp();
+    } else if (chosen.localeCompare("login") == 0) {
+      alert("login page");
+      toggleSignIn();
+    }
+  }
+
+  function toggleSignIn() {
+    alert("signin reached");
+    if (firebase.auth().currentUser) {
+      // [START signout]
+      firebase.auth().signOut();
+      // [END signout]
+    } else {
+      var email = document.getElementById('emailField').value;
+      var password = document.getElementById('passwordField').value;
+      if (email.length < 4) {
+        alert('Please enter an email address.');
+        return;
+      }
+      if (password.length < 4) {
+        alert('Please enter a password.');
+        return;
+      }
+      // Sign in with email and pass.
+      // [START authwithemail]
+      firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode === 'auth/wrong-password') {
+          alert('Wrong password.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+        document.getElementById('submitBtn').disabled = false;
+        // [END_EXCLUDE]
+      });
+      // [END authwithemail]
+    }
+    document.getElementById('submitBtn').disabled = true;
+  }
+
+  function handleSignUp() {
+    alert("signup reached");
+    var email = document.getElementById('emailField').value;
+    var password = document.getElementById('passwordField').value;
+    alert("email: " + email + "\npassword: " + password);
+    if (email.length < 4) {
+      alert('Please enter an email address.');
+      return;
+    }
+    if (password.length < 4) {
+      alert('Please enter a password.');
+      return;
+    }
+    // Sign in with email and pass.
+    // [START createwithemail]
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // [START_EXCLUDE]
+      if (errorCode == 'auth/weak-password') {
+        alert('The password is too weak.');
+      } else {
+        alert(errorMessage);
+      }
+      console.log(error);
+      document.getElementById('submitBtn').disabled = false;
+      // [END_EXCLUDE]
+    });
+    document.getElementById('submitBtn').disabled = true;
+    window.location.assign("index.html");
+    return false;
+    // [END createwithemail]
+  }
+
 </script>
 </head>
 <html>
@@ -178,7 +277,7 @@
 				</p>
 				<p class="align">
 					<br id = "optionalNewLine1"><text id="password"></text>
-					<input type="password" name="passwordField">
+					<input id="passwordField" type="password" name="passwordField">
 				</p>
 				<p>
 					<button class="btn" id="submitBtn"><p class="helveticaSmall">SUBMIT</button>
