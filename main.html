@@ -158,7 +158,6 @@
       var butt = document.getElementById("submitBtn");
       butt.onclick = handler;
       function handler() {
-        alert("in handler");
         firebaseAction();
         return false;
       }
@@ -178,16 +177,13 @@
   function firebaseAction() {
     chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
     if (chosen.localeCompare("signup") == 0) {
-      alert("signup page");
       handleSignUp();
     } else if (chosen.localeCompare("login") == 0) {
-      alert("login page");
       toggleSignIn();
     }
   }
 
   function toggleSignIn() {
-    alert("signin reached");
     if (firebase.auth().currentUser) {
       // [START signout]
       firebase.auth().signOut();
@@ -216,16 +212,22 @@
           alert(errorMessage);
         }
         console.log(error);
-        document.getElementById('submitBtn').disabled = false;
+        //document.getElementById('submitBtn').disabled = false;
         // [END_EXCLUDE]
       });
       // [END authwithemail]
+        // User is signed in.
+      var butt = document.getElementById("submitBtn");
+      butt.onclick = handler;
+      function handler() {
+        window.location.assign("landing.html");
+        return false;
+      }
     }
-    document.getElementById('submitBtn').disabled = true;
+    //document.getElementById('submitBtn').disabled = true;
   }
 
   function handleSignUp() {
-    alert("signup reached");
     var email = document.getElementById('emailField').value;
     var password = document.getElementById('passwordField').value;
     alert("email: " + email + "\npassword: " + password);
@@ -250,10 +252,10 @@
         alert(errorMessage);
       }
       console.log(error);
-      document.getElementById('submitBtn').disabled = false;
+      //document.getElementById('submitBtn').disabled = false;
       // [END_EXCLUDE]
     });
-    document.getElementById('submitBtn').disabled = true;
+    //document.getElementById('submitBtn').disabled = true;
     window.location.assign("index.html");
     return false;
     // [END createwithemail]
