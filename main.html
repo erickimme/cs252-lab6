@@ -208,6 +208,7 @@
   }
 
   function handleSignUp() {
+    console.log("SIGNUP REACHED");
     var email = document.getElementById('emailField').value;
     var password = document.getElementById('passwordField').value;
     if (email.length < 4) {
@@ -277,6 +278,7 @@
     // [END authstatelistener]
     
     document.getElementById('submitBtn').addEventListener('click', firebaseAction, false);
+    console.log("APP INITIALIZED");
   }
 
     window.onload = function() {
