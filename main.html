@@ -180,7 +180,7 @@
   function firebaseAction() {
     chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
     if (chosen.localeCompare("signup") == 0) {
-      alert("signin page");
+      alert("signup page");
       handleSignUp();
     } else if (chosen.localeCompare("login") == 0) {
       alert("login page");
@@ -230,6 +230,7 @@
     alert("signup reached");
     var email = document.getElementById('emailField').value;
     var password = document.getElementById('passwordField').value;
+    alert("email: " + email + "\npassword: " + password);
     if (email.length < 4) {
       alert('Please enter an email address.');
       return;
