@@ -60,10 +60,10 @@
         display: inline-block;
     }
 
-    .submitBlue{
-      	background-color: white;
-      	color: black;
-    }
+  .submitBlue{
+      background-color: white;
+      color: black;
+  }
 
     .submitRed{
       	background-color: white;
@@ -143,9 +143,12 @@
 			document.getElementById("submitBtn").setAttribute("class", "btn submitRed");
 		}
 
-		 document.getElementById("submitBtn").onclick = function() {
-		 	window.location.href = "game.html";
-		 };
+    var butt = document.getElementById("submitBtn");
+    butt.onclick = handler;
+    function handler() {
+      window.location.assign("landing.html");
+      return false;
+    }
 	}
 
 	function getParameterByName(name, url) {
@@ -192,7 +195,6 @@
       });
     }
   }
-
 </script>
 </head>
 <html>
