@@ -100,7 +100,6 @@
 <script>
 	function main() {
     //document.getElementById('submitBtn').addEventListener('click', firebaseAction, false);
-    alert("in main");
 		loginOrSignup();
 	}
 
@@ -156,7 +155,6 @@
       }
     } else {
       // No user is signed in.
-      alert("setAction");
       var butt = document.getElementById("submitBtn");
       butt.onclick = handler;
       function handler() {
@@ -277,7 +275,7 @@
 				</p>
 				<p class="align">
 					<br id = "optionalNewLine1"><text id="password"></text>
-					<input type="password" name="passwordField">
+					<input id="passwordField" type="password" name="passwordField">
 				</p>
 				<p>
 					<button class="btn" id="submitBtn"><p class="helveticaSmall">SUBMIT</button>
