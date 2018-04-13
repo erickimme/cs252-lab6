@@ -99,7 +99,7 @@
 </script>
 <script>
 	function main() {
-    document.getElementById('submitBtn').addEventListener('click', firebaseAction, false);
+    //document.getElementById('submitBtn').addEventListener('click', firebaseAction, false);
 		loginOrSignup();
 	}
 
@@ -155,7 +155,8 @@
       }
     } else {
       // No user is signed in.
-      return;
+      var butt = document.getElementById("submitBtn");
+      butt.onclick = firebaseAction;
     }
 	}
 
