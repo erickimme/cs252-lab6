@@ -86,11 +86,6 @@
 <script>
 
 
-function logout() {
-    firebase.auth().signOut();
-    window.location.href='index.html'
-}
-
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     alert("signed in");
@@ -103,7 +98,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 </head>
 <html>
 	<body>
-		<button class="btn1 logOut topright" onclick="logout()"><p class = "helveticaSmall">LOGOUT</button>
+		<button class="btn1 logOut topright" onclick="window.location.href='index.html'"><p class = "helveticaSmall">LOGOUT</button>
 		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">"START"</button>
 
 		<text class="stats"><p class="helveticaMedium">"STATS"</text>
