@@ -100,15 +100,15 @@
 <script>
 	function main() {
     //document.getElementById('submitBtn').addEventListener('click', firebaseAction, false);
-		loginOrSignup();
-	}
-
-	function loginOrSignup() {
     var user = firebase.auth().currentUser;
     if (user) {
       window.location.assign("landing.html");
       return false;
     }
+		loginOrSignup();
+	}
+
+	function loginOrSignup() {
 		chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
 		if (chosen.localeCompare("signup") == 0) {
 			document.getElementById("displayHeader").innerHTML = "\"SIGN UP\"";
