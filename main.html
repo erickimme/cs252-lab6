@@ -199,10 +199,8 @@
   function firebaseAction() {
     chosen = getParameterByName("method", window.location.href).toLocaleLowerCase();
     if (chosen.localeCompare("signup") == 0) {
-      alert("1");
       handleSignUp();
     } else if (chosen.localeCompare("login") == 0) {
-      alert("2");
       toggleSignIn();
     }
   }
@@ -256,6 +254,8 @@
         var errorMessage = error.message;
       });
       */
+      window.location.assign("landing.html");
+        return false;
 
       // [END authwithemail]
         // User is signed in.
