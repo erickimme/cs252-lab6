@@ -94,7 +94,9 @@
         messagingSenderId: "502978148456"
     };
     firebase.initializeApp(config); */
-    alert("USER: " + firebase.auth().currentUser);
+    var user = firebase.auth().currentUser;
+    alert("test");
+    alert("USER: " + user);
 
 </script>
 </head>
