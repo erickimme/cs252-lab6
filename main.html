@@ -239,6 +239,8 @@
         //document.getElementById('submitBtn').disabled = false;
         // [END_EXCLUDE]
       });
+
+      /*
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
       .then(function() {
         // Existing and future Auth states are now persisted in the current
@@ -253,6 +255,8 @@
         var errorCode = error.code;
         var errorMessage = error.message;
       });
+      */
+
       // [END authwithemail]
         // User is signed in.
     }
@@ -293,7 +297,7 @@
     // [END createwithemail]
   }
 
-  function initApp() {
+  /*function initApp() {
     // Listening for auth state changes.
     // [START authstatelistener]
     firebase.auth().onAuthStateChanged(function(user) {
@@ -338,7 +342,7 @@
 
   window.onload = function() {
     initApp();
-  };
+  };*/
 
 </script>
 </head>
