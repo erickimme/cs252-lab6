@@ -144,6 +144,13 @@
 			document.getElementById("submitBtn").setAttribute("class", "btn submitRed");
 		}
 
+    var butt = document.getElementById("submitBtn");
+    butt.onclick = handler;
+    function handler() {
+      firebaseAction();
+      return false;
+    }
+
     firebase.auth().onAuthStateChanged(function(user) {
       alert(user);
       if (user) {
@@ -152,14 +159,6 @@
         butt.onclick = handler;
         function handler() {
           window.location.assign("landing.html");
-          return false;
-        }
-      } else {
-        // No user is signed in.
-        var butt = document.getElementById("submitBtn");
-        butt.onclick = handler;
-        function handler() {
-          firebaseAction();
           return false;
         }
       }
