@@ -35,12 +35,14 @@ function setup() {
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
     	var character = getChar();
-    	console.log(character);
     	grid[i][j] = new Cell(i, j, w, character);
     }
   }
+
+
 }
 
+// generate random char from alphabet using the frequencies array
 function getChar() {
 	// generate random number from 0->max
 	var random = Math.random() * cumFrequencies[cumFrequencies.length - 1];
@@ -88,7 +90,6 @@ function mousePressed() {
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
       if (grid[i][j].contains(mouseX, mouseY)) {
-      	console.log(i, j);
         grid[i][j].colorIn(turn);
       }
     }
@@ -103,3 +104,46 @@ function draw() {
     }
   }
 }
+
+// check if word is valid and switch turns if user did enter valid
+function checkWord() {
+	if (turn == 1) {
+		turn = 2;
+	} else if(turn == 2){
+		turn = 1;
+	}
+}
+
+// clear previously highlighted if user clicks clear word
+ function clearWord() {
+ 	for (var i = 0; i < rows; i++) {
+ 		for (var j = 0; j < cols; j++) {
+ 			var curr = grid[j][i];
+ 			if (curr.color.localeCompare("lightBlue") == 0 || curr.color.localeCompare("lightRed") == 0) {
+    			curr.resetColor();
+ 			}
+ 		}
+ 	}
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
