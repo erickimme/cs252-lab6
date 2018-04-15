@@ -7,12 +7,14 @@ function Cell(i, j, w, character) {
 
   this.turn = 0;
   this.reset = false;
+  this.belong = false;
   this.character = character;
+  this.color = "";
 }
 
 Cell.prototype.show = function() {
   stroke(0);
-  if (this.reset == false) {
+  if (this.reset == false && this.belong == false) {
     // fill in boxes (SETUP)
     if (this.j == 0) {
       // player 1 starting side
@@ -42,15 +44,15 @@ Cell.prototype.show = function() {
       rect(this.x, this.y, this.w, this.w);
       fill (0);
       text(this.character, this.x + this.w * 0.43, this.y + this.w - 20);
-      this.color = "lightBlue";
+      this.color = "lightRed";
     } else if (this.turn == 2) {
       fill('#fa8072');
       rect(this.x, this.y, this.w, this.w);
       fill (0);
       text(this.character, this.x + this.w * 0.43, this.y + this.w - 20);
-      this.color = "lightRed";
+      this.color = "lightBlue";
     }
-  } else {
+  } else if (this.reset == true && this.belong == false) {
     // if reset rows are bottom row
     if (this.j == 12) {
       fill('#FA5858');
@@ -73,7 +75,22 @@ Cell.prototype.show = function() {
       text(this.character, this.x + this.w * 0.43, this.y + this.w - 20);
       this.color = "white";
     }
-  } 
+  } else if (this.belong == true) {
+      // color in the block to blue or red depending on turn
+      if (this.turn == 2) {
+        fill('#FA5858');
+        rect(this.x, this.y, this.w, this.w);
+        fill (0);
+        text(this.character, this.x + this.w * 0.43, this.y + this.w - 20);
+        this.color = "blue";
+      } else if (this.turn == 1) {
+        fill('#58ACFA');
+        rect(this.x, this.y, this.w, this.w);
+        fill (0);
+        text(this.character, this.x + this.w * 0.43, this.y + this.w - 20);
+        this.color = "red";
+      }
+  }
 }
 
 Cell.prototype.contains = function(x, y) {
@@ -82,9 +99,15 @@ Cell.prototype.contains = function(x, y) {
 
 Cell.prototype.colorIn = function(turn) {
   this.reset = false;
+  this.belong = false;
   this.turn = turn;
 }
 
 Cell.prototype.resetColor = function() {
   this.reset = true;
+}
+
+Cell.prototype.darkenColor = function(turn) {
+  this.belong = true;
+  this.turn = turn;
 }

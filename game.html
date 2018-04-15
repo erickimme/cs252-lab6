@@ -13,8 +13,11 @@
       font-weight: bold;
     }
 
-	.checkPos { position: absolute; top: 250px; right: 280px; text-align: left;}
-	.cancelPos { position: absolute; top: 320px; right: 280px; text-align: left;}
+	.checkPos { position: absolute; top: 320px; right: 280px; text-align: left;}
+	.cancelPos { position: absolute; top: 400px; right: 280px; text-align: left;}
+    .wordPos {position: absolute; top: 240px; right: 280px; text-align: left;}
+
+	.topright { position: absolute; top: : 5px; right: 15px; text-align: right;}
 
     .btn {
         border: none;
@@ -23,6 +26,17 @@
         cursor: pointer;
         display: inline-block;
     }
+
+    .quitGame {
+      background-color: white;
+      color: black;
+    }
+
+    .quitGame:hover {
+      color: lightgrey;
+    }
+
+    .quitGame:focus {outline:0;}
 
     .checkWordOne {
       background-color: white;
@@ -58,7 +72,10 @@
 	</head>
 
 	<body>
-    	<button class="btn checkWordOne checkPos" onclick="checkWord()"><p class = "helveticaLarge">CHECK WORD</button>
-    	<button class="btn cancelWordOne cancelPos" onclick="clearWord()"><p class = "helveticaLarge">CANCEL WORD</button>
+		<button class="btn quitGame topright" onclick="window.location.href='landing.html'"><p class="helveticaSmall">QUIT GAME</button>
+    	<button class="btn checkWordOne checkPos" onclick="checkWord()"><p class="helveticaLarge">CHECK WORD</button>
+    	<button class="btn cancelWordOne cancelPos" onclick="clearWord()"><p class="helveticaLarge">CANCEL WORD</button>
+    	<text id="currentWord" class="wordPos"><p class="helveticaLarge" style:"display:inline">""</text>
+
 	</body>
 </html>
