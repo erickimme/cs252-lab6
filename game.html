@@ -1,10 +1,80 @@
 <!DOCTYPE html>
+
+<head>
+    <style type="text/css">
+    .helveticaLarge {
+      font-family: "helvetica", "sans-serif";
+      font-size: 20pt;
+      font-weight: bold;
+    }
+    .helveticaSmall {
+      font-family: "helvetica", "sans-serif";
+      font-size: 10pt;
+      font-weight: bold;
+    }
+
+	.checkPos { position: absolute; top: 320px; right: 280px; text-align: left;}
+	.cancelPos { position: absolute; top: 400px; right: 280px; text-align: left;}
+    .wordPos {position: absolute; top: 240px; right: 280px; text-align: left;}
+
+	.topright { position: absolute; top: : 5px; right: 15px; text-align: right;}
+
+    .btn {
+        border: none;
+        background-color: inherit;
+        padding: 5px 5px;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .quitGame {
+      background-color: white;
+      color: black;
+    }
+
+    .quitGame:hover {
+      color: lightgrey;
+    }
+
+    .quitGame:focus {outline:0;}
+
+    .checkWordOne {
+      background-color: white;
+      color: black;
+    }
+
+    .checkWordOne:hover {
+      color: lightskyblue;
+    }
+
+    .checkWordOne:focus {outline:0;}
+
+    .cancelWordOne {
+      background-color: white;
+      color: black;
+    }
+
+    .cancelWordOne:hover {
+      color: lightskyblue;
+    }
+
+    .cancelWordOne:focus {outline:0;}
+
+  </style>
+</head>
 <html>
-<body>
+	<head>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/p5.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/addons/p5.dom.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/addons/p5.sound.min.js"></script>
+		<script src="control.js"></script>
+		<script src="cell.js"></script>
+	</head>
 
-<p> in game</p>
-
-<script type="text/javascript" src="control.js"></script>
-
-</body>
+	<body>
+		<button class="btn quitGame topright" onclick="window.location.href='landing.html'"><p class="helveticaSmall">QUIT GAME</button>
+    	<button class="btn checkWordOne checkPos" onclick="checkWord()"><p class="helveticaLarge">CHECK WORD</button>
+    	<button class="btn cancelWordOne cancelPos" onclick="clearWord()"><p class="helveticaLarge">CANCEL WORD</button>
+    	<text id="currentWord" class="wordPos"><p class="helveticaLarge" style:"display:inline">""</text>
+	</body>
 </html>
