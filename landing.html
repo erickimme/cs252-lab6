@@ -98,12 +98,13 @@
   };
   firebase.initializeApp(config);
 </script>
-
+<script type="text/javascript" src="jAuth.json"></script>
 <script>
 
 function runThis() {
     //var user = firebase.auth().currentUser;
-    alert("User: " + jAuth.email);
+    var authDetails = JSON.parse(jAuth);
+    alert("User: " + authDetails.email + "\n" + "Password: " + authDetails.password);
 }
 /*
 firebase.auth().onAuthStateChanged(function(user) {
@@ -120,7 +121,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 	<body>
 		<button class="btn1 logOut topright" onclick="window.location.href='index.html'"><p class = "helveticaSmall">LOGOUT</button>
 		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">"START"</button>
-        <button onclick="runThis()">Click</button>
+        <button onclick="runThis()">Click!</button>
 
 		<text class="stats"><p class="helveticaMedium">"STATS"</text>
 			<table>
