@@ -101,8 +101,10 @@
 
 <script>
 
-alert(user);
-
+window.onload = function() {
+    alert(user);
+  };
+/*
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     alert("signed in");
@@ -110,7 +112,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     alert("not signed in");
   }
 });
-
+*/
 </script>
 </head>
 <html>
