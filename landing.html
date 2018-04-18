@@ -101,9 +101,9 @@
 
 <script>
 
-window.onload = function() {
-    alert(user);
-  };
+function runThis() {
+    alert("User: " + user);
+}
 /*
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -119,6 +119,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 	<body>
 		<button class="btn1 logOut topright" onclick="window.location.href='index.html'"><p class = "helveticaSmall">LOGOUT</button>
 		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">"START"</button>
+        <button onclick="runThis()">Click me</button>
 
 		<text class="stats"><p class="helveticaMedium">"STATS"</text>
 			<table>
