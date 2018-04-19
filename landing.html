@@ -101,7 +101,7 @@
 </script>
 <script>
 
-function loadJSON(callback) {
+/*function loadJSON(callback) {
 
   var xobj = new XMLHttpRequest();
   xobj.overrideMimeType("application/json");
@@ -116,17 +116,19 @@ function loadJSON(callback) {
   }
   xobj.send(null);
 
-}
+}*/
 
 function runThis() {
   //var user = firebase.auth().currentUser;
   alert("before JSON");
-  loadJSON(function(resonse) {
+  /*loadJSON(function(resonse) {
     jsonresponse = JSON.parse(response);
     alert(jsonresponse[0].email)
-  });
+  });*/
+  var myData = JSON.parse(jAuth);
+  alert(myData[0].email);
+  alert(myData[0].password);
   alert("progressed");
-  alert("User: " + data.email + "\n" + "Password: " + jAuth.password);
 }
 /*
 firebase.auth().onAuthStateChanged(function(user) {
