@@ -256,7 +256,7 @@
         var errorMessage = error.message;
       });
       */
-      var obj = {"email": email, "password": password};
+      var obj = [{"email": email, "password": password}];
       saveText(JSON.stringify(obj), "jAuth.json");
       alert("text saved");
       window.location.assign("landing.html");
