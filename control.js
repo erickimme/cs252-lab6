@@ -19,7 +19,6 @@ var alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M',
 var frequencies = [10.167, 1.492, 2.782, 4.253, 12.702, 2.228, 2.015, 
 	5.094, 7.966, 0.153, 0.772, 4.025, 2.406, 6.749, 8.507, 1.929, 0.095, 
 	5.987,6.327, 6.056, 2.758, 0.978, 2.360, 0.150, 1.974, 0.074];
-
 var cumFrequencies = []; // populated in setup
 
 function setup() {
@@ -136,7 +135,6 @@ function mousePressed() {
 		      		// if already chosen first letter, must choose adjacent block to first value in wordCoords
 		      		var recentCoords = wordCoords[0].split(" ");
 		      		if (isAdjacent(x, y, recentCoords[0], recentCoords[1]) && noOverlap(x, y)) {
-		      			console.log("here");
 		      			grid[x][y].colorIn(turn);
 		      			word += grid[x][y].character;
 		      			var coords = x + " " + y;
@@ -161,27 +159,36 @@ function draw() {
 
 // check if word is valid and switch turns if user did enter valid
 function checkWord() {
-	// check if word is valid
+	// TODO: change chekcing: check if word is valid
+	var validWord = true;
 
 
-	// if valid, change color to dark version for the current color
-	for (var i = 0; i < wordCoords.length; i++) {
-		var coords = wordCoords[i].split(" ");
-		grid[coords[0]][coords[1]].darkenColor(turn);
+	if (validWord) {
+		// Change color to dark version for the current color
+		for (var i = 0; i < wordCoords.length; i++) {
+			var coords = wordCoords[i].split(" ");
+			grid[coords[0]][coords[1]].darkenColor(turn);
+		}
+
+		// Check if any of the opponents blocks are not connected
+		// Find connected components that are not linked to each person's base line
+		removeIslands(turn);
+
+		// switch user + reset word, wordcCoords, wordField
+		if (turn == 1) {
+			turn = 2;
+		} else if(turn == 2){
+			turn = 1;
+		}
+
+		word = "";
+		wordCoords = [];
+		resetWordField();
+	} else {
+		// if not valid, let user know the word is not valid and erase the highlighed portion
+		alert("\"" + word + "\" is not a valid word, please find a valid English word");
+		clearWord();
 	}
-
-	// if not valid clear word
-
-	// switch user
-	if (turn == 1) {
-		turn = 2;
-	} else if(turn == 2){
-		turn = 1;
-	}
-
-	word = "";
-	wordCoords = [];
-	resetWordField();
 }
 
 // clear previously highlighted if user clicks cancel word
@@ -204,3 +211,86 @@ function checkWord() {
   	display.innerHTML = "\"" + word + "\"";
   	display.setAttribute("class", "helveticaLarge wordPos");
  }
+
+ function isSafe(grid, i, j, visited, currConnected) {
+ 	return (i >= 0) && (i < 13) && (j >= 0) && (j < 11) && 
+ 		((grid[i][j].color.localeCompare(color) == 0) && !visited[row][col]);
+ }
+
+ function DFS(grid, i, j, visited, currConnected, color) {
+ 	// populate the currConnected array with cells that are connected
+ 	var rowDelta = new Array(-1, -1, -1,  0, 0,  1, 1, 1);
+ 	var colDelta = new Array(-1,  0,  1, -1, 1, -1, 0, 1);
+
+ 	visited[i][j] = true;
+ 	for (var k = 0; k < 8; k++) {
+ 		if (isSafe(grid, i + rowDelta[k], j + colDelta[k], visited, currConnected, color)) {
+ 			currConnected.push(i + " " + j);
+        	DFS(grid, i + rowDelta[k], j + colDelta[k], visited, currConnected, color);
+ 		}
+ 	}
+ }
+
+ function removeIslands(turn) {
+ 	var visited = [];	// array to detect if cell has been visited in search
+ 	var connectedComponents = [];	// array of all connected components, which are arrays
+ 	for (var i = 0; i < 13; i++) {
+ 		visited[i] = [];
+ 		for (var j = 0; j < 11; j++) {
+ 			visited[i][j] = false;
+ 		}
+ 	}
+
+ 	var turnColor;
+ 	if (turn == 1) {
+ 		turnColor == "red";
+ 	} else if (turn == 2) {
+ 		turnColor == "blue";
+ 	}
+
+ 	// find connected component that is not attached to the base row of the color and erase it
+ 	var count = 0;
+ 	for (var i = 0; i < 13; i++) {
+ 		for (var j = 0; j < 11; j++) {
+ 			if (!visited[i][j] && (grid[i][j].color.localeCompare(turnColor) == 0)) {
+ 				var currConnected = [];
+ 				DFS(grid, i, j, visited, currConnected, color);
+ 				connectedComponents.push(currConnected);
+ 				count++;
+ 			}
+ 		}
+ 	}
+
+ 	// if there is more than one connected component of that color
+ 	if (count > 1) {
+ 		// get rid of all conected components
+ 		// first array in connectedComponents hsould be the one containing base lines
+ 		for (var i = 1; i < connectedComponents.length; i++) {
+ 			// change all blocks in the connected componenet to white
+ 			for (var j = 0; j < connectedComponents[i].length; j++) {
+ 				var cellCoords = connectedComponents[i][j].split(" ");
+				var coordsX = cellCoords[0];
+				var coordsY = cellCoords[1];
+
+				var islandCell = grid[coordsX][coordsY];
+				islandCell.colorIn(0);
+ 			}
+ 		}
+ 	}
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
