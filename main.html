@@ -256,6 +256,13 @@
         var errorMessage = error.message;
       });
       */
+      $.getJSON("jAuth.json", function(json) {
+        //console.log(json); // this will show the info it in firebug console
+        json[0].email = email;
+        json[0].password = password;
+        alert("json loading success");
+      });
+      
       window.location.assign("landing.html");
       //return;
 
