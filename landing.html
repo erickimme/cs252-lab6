@@ -98,13 +98,13 @@
   };
   firebase.initializeApp(config);
 </script>
-<script type="text/javascript" src="jAuth.json"></script>
 <script>
 
 function runThis() {
     //var user = firebase.auth().currentUser;
-    var authDetails = JSON.parse(jAuth);
-    alert("User: " + authDetails.email + "\n" + "Password: " + authDetails.password);
+    var jAuth = require('./jAuth.json');
+    alert("progressed");
+    alert("User: " + jAuth.email + "\n" + "Password: " + jAuth.password);
 }
 /*
 firebase.auth().onAuthStateChanged(function(user) {
