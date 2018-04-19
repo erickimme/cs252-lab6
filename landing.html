@@ -98,8 +98,7 @@
   };
   firebase.initializeApp(config);
 </script>
-<script ></script>
-<script src="jAuth.json">
+<script>
 
 /*function loadJSON(callback) {
 
@@ -125,9 +124,11 @@ function runThis() {
     jsonresponse = JSON.parse(response);
     alert(jsonresponse[0].email)
   });*/
-  var myData = JSON.parse(jAuth);
-  alert(myData[0].email);
-  alert(myData[0].password);
+  $.getJSON("jAuth.json", function(json) {
+    //console.log(json); // this will show the info it in firebug console
+    alert("success");
+    alert(json[0].email);
+  });
   alert("progressed");
 }
 /*
