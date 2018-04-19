@@ -101,11 +101,32 @@
 </script>
 <script>
 
+function loadJSON(callback) {
+
+  var xobj = new XMLHttpRequest();
+  xobj.overrideMimeType("application/json");
+  xobj.open('GET', 'jAuth.json', true);
+  xobj.onreadystatechange = function() {
+      if (xobj.readyState == 4 && xobj.status == "200") {
+
+          // .open will NOT return a value but simply returns undefined in async mode so use a callback
+          callback(xobj.responseText);
+
+      }
+  }
+  xobj.send(null);
+
+}
+
 function runThis() {
-    //var user = firebase.auth().currentUser;
-    var data = JSON.parse(jAuth);
-    alert("progressed");
-    alert("User: " + data.email + "\n" + "Password: " + jAuth.password);
+  //var user = firebase.auth().currentUser;
+  alert("before JSON");
+  loadJSON(function(resonse) {
+    jsonresponse = JSON.parse(response);
+    alert(jsonresponse[0].email)
+  });
+  alert("progressed");
+  alert("User: " + data.email + "\n" + "Password: " + jAuth.password);
 }
 /*
 firebase.auth().onAuthStateChanged(function(user) {
