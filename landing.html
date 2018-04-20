@@ -100,22 +100,14 @@
 </script>
 <script>
 
-/*function loadJSON(callback) {
-
-  var xobj = new XMLHttpRequest();
-  xobj.overrideMimeType("application/json");
-  xobj.open('GET', 'jAuth.json', true);
-  xobj.onreadystatechange = function() {
-      if (xobj.readyState == 4 && xobj.status == "200") {
-
-          // .open will NOT return a value but simply returns undefined in async mode so use a callback
-          callback(xobj.responseText);
-
-      }
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    alert(firebase.auth().currentUser);
+  } else {
+    // No user is signed in.
   }
-  xobj.send(null);
-
-}*/
+});
 
 function main1() {
   if (!(firebase.auth().currentUser)) {
@@ -137,8 +129,6 @@ function main1() {
       // [END_EXCLUDE]
     });
   }
-
-  alert(firebase.auth().currentUser);
 }
 
 function runThis() {
