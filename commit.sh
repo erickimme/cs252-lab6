@@ -1,5 +1,5 @@
 #!/bin/bash
 git add .
-git commit -m "misc. test fixes"
+git commit -m "database test fixes"
 git push heroku master
 exit
