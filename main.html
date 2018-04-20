@@ -208,6 +208,7 @@
   }
 
   function toggleSignIn() {
+    var signedIn = 1;
     if (firebase.auth().currentUser) {
       // [START signout]
       firebase.auth().signOut();
@@ -229,6 +230,7 @@
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
+        signedIn = 0;
         // [START_EXCLUDE]
         if (errorCode === 'auth/wrong-password') {
           alert('Wrong password.');
@@ -260,9 +262,13 @@
       */
       /*var obj = [{"email": email, "password": password}];
       saveText(JSON.stringify(obj), "jAuth.json");*/
-      localStorage.setItem("email", email);
-      localStorage.setItem("password", password);
-      //window.location.assign("landing.html");
+      if(signedIn == 1){
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+        window.location.assign("landing.html");
+      }
+      
+      //
       //return;
 
       // [END authwithemail]
