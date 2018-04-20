@@ -1,14 +1,14 @@
 function make2DArray(cols, rows) {
-  var arr = new Array(cols);
+  var arr = new Array(rows);
   for (var i = 0; i < arr.length; i++) {
-    arr[i] = new Array(rows);
+    arr[i] = new Array(cols);
   }
   return arr;
 }
 
-var grid;
-var cols;
-var rows;
+var grid;	// 13 rows by 11 cols
+var cols;	// default of 11
+var rows;	// default of 13
 var w = 50;
 var turn = 1; // player 1's turn first
 var word = ""; // word the player is forming
@@ -26,7 +26,6 @@ function setup() {
   cols = floor(width / w);
   rows = floor(height / w);
   grid = make2DArray(cols, rows);
-
   // calculate cumulative frequencies
   var cum = 0;
   for (var i = 0; i < frequencies.length; i++) {
@@ -34,8 +33,8 @@ function setup() {
   	cum = cum + frequencies[i];
   }
 
-  for (var i = 0; i < cols; i++) {
-    for (var j = 0; j < rows; j++) {
+  for (var i = 0; i < rows; i++) {
+    for (var j = 0; j < cols; j++) {
     	var character = getChar();
     	grid[i][j] = new Cell(i, j, w, character);
     }
@@ -46,6 +45,15 @@ function setup() {
   resetWordField();
   wordCoords = [];
   turn = 1;
+}
+
+function draw() {
+  background(255);
+  for (var i = 0; i < rows; i++) {
+    for (var j = 0; j < cols; j++) {
+      	grid[i][j].show();
+    }
+  }
 }
 
 // generate random char from alphabet using the frequencies array
@@ -116,16 +124,16 @@ function noOverlap(x, y) {
 }
 
 function mousePressed() {
-	for (var x = 0; x < cols; x++) {
-		for (var y = 0; y < rows; y++) {
+	for (var x = 0; x < rows; x++) {
+		for (var y = 0; y < cols; y++) {
 			var curr = grid[x][y];
 
 	    	if (grid[x][y].contains(mouseX, mouseY)) {
 		      	console.log(word);
 		      	if (word.length === 0) {
 		      		// if choosing first letter, must start at an already owned block
-		      		if ((turn == 2 && grid[x][y].color.localeCompare("blue") == 0) ||
-		      		 (turn == 1 && grid[x][y].color.localeCompare("red") == 0))  {
+		      		if ((turn == 1 && grid[x][y].color.localeCompare("blue") == 0) ||
+		      		 (turn == 2 && grid[x][y].color.localeCompare("red") == 0))  {
 		      			grid[x][y].colorIn(turn);
 		      			word += grid[x][y].character;
 		      			var coords = x + " " + y;
@@ -148,20 +156,15 @@ function mousePressed() {
 	}
 }
 
-function draw() {
-  background(255);
-  for (var i = 0; i < cols; i++) {
-    for (var j = 0; j < rows; j++) {
-      grid[i][j].show();
-    }
-  }
-}
-
 // check if word is valid and switch turns if user did enter valid
 function checkWord() {
-	// TODO: change chekcing: check if word is valid
-	var validWord = true;
+	if (word == "") {
+		alert("Please select a valid word");
+		return;
+	}
 
+	// TODO: change checking: check if word is valid
+	var validWord = true;
 
 	if (validWord) {
 		// Change color to dark version for the current color
@@ -198,7 +201,7 @@ function checkWord() {
  	resetWordField();
  	for (var i = 0; i < rows; i++) {
  		for (var j = 0; j < cols; j++) {
- 			var curr = grid[j][i];
+ 			var curr = grid[i][j];
  			if (curr.color.localeCompare("lightBlue") == 0 || curr.color.localeCompare("lightRed") == 0) {
     			curr.resetColor();
  			}
@@ -222,6 +225,8 @@ function checkWord() {
  	var rowDelta = new Array(-1, -1, -1,  0, 0,  1, 1, 1);
  	var colDelta = new Array(-1,  0,  1, -1, 1, -1, 0, 1);
 
+ 	console.log("entered DFS");
+
  	visited[i][j] = true;
  	for (var k = 0; k < 8; k++) {
  		if (isSafe(grid, i + rowDelta[k], j + colDelta[k], visited, currConnected, color)) {
@@ -234,51 +239,64 @@ function checkWord() {
  function removeIslands(turn) {
  	var visited = [];	// array to detect if cell has been visited in search
  	var connectedComponents = [];	// array of all connected components, which are arrays
- 	for (var i = 0; i < 13; i++) {
+ 	for (var i = 0; i < rows; i++) {
  		visited[i] = [];
- 		for (var j = 0; j < 11; j++) {
+ 		for (var j = 0; j < cols; j++) {
  			visited[i][j] = false;
  		}
  	}
 
  	var turnColor;
  	if (turn == 1) {
- 		turnColor == "red";
+ 		turnColor = "lightBlue";
  	} else if (turn == 2) {
- 		turnColor == "blue";
+ 		turnColor = "lightRed";
  	}
 
  	// find connected component that is not attached to the base row of the color and erase it
  	var count = 0;
- 	for (var i = 0; i < 13; i++) {
- 		for (var j = 0; j < 11; j++) {
- 			if (!visited[i][j] && (grid[i][j].color.localeCompare(turnColor) == 0)) {
+ 	for (var x = 0; x < rows; x++) {
+ 		for (var y = 0; y < cols; y++) {
+ 			 console.log(x, y);
+ 			 console.log(grid[x][y].color);
+ 			// console.log(grid[x][y].setColor);
+
+ 			if (visited[x][y] == false && (grid[x][y].color === turnColor)) {
+ 				console.log("IN TOP");
  				var currConnected = [];
- 				DFS(grid, i, j, visited, currConnected, color);
+ 				DFS(grid, x, y, visited, currConnected, turnColor);
  				connectedComponents.push(currConnected);
  				count++;
  			}
  		}
  	}
 
- 	// if there is more than one connected component of that color
- 	if (count > 1) {
- 		// get rid of all conected components
- 		// first array in connectedComponents hsould be the one containing base lines
- 		for (var i = 1; i < connectedComponents.length; i++) {
- 			// change all blocks in the connected componenet to white
- 			for (var j = 0; j < connectedComponents[i].length; j++) {
- 				var cellCoords = connectedComponents[i][j].split(" ");
-				var coordsX = cellCoords[0];
-				var coordsY = cellCoords[1];
-
-				var islandCell = grid[coordsX][coordsY];
-				islandCell.colorIn(0);
- 			}
+ 	// print out all conneted components to console
+ 	for (var first = 0; first < connectedComponents.length; first++) {
+ 		console.log("SEPERATOR!!!!");
+ 		for (var sec = 0; sec < connectedComponents[first].length; sec++) {
+ 			console.log(connectedComponents[first][sec]);
  		}
  	}
 
+ 	return;
 
+ 	// if there is more than one connected component of that color
+ 	// if (count > 1) {
+ 	// 	// get rid of all conected components
+ 	// 	// first array in connectedComponents hsould be the one containing base lines
+ 	// 	for (var i = 1; i < connectedComponents.length; i++) {
+ 	// 		// change all blocks in the connected componenet to white
+ 	// 		for (var j = 0; j < connectedComponents[i].length; j++) {
+ 	// 			var cellCoords = connectedComponents[i][j].split(" ");
+		// 		var coordsX = cellCoords[0];
+		// 		var coordsY = cellCoords[1];
+
+		// 		var islandCell = grid[coordsX][coordsY];
+		// 		islandCell.colorIn(0);
+ 	// 		}
+ 	// 	}
+ 	// }
  }
 
 
