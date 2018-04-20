@@ -123,6 +123,12 @@ function runThis() {
   alert(email + " " + password);
   alert("progressed");
 }
+
+function logout() {
+  firebase.auth().signOut();
+  window.location.href='index.html';
+  return;
+}
 /*
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -136,7 +142,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 </head>
 <html>
 	<body>
-		<button class="btn1 logOut topright" onclick="window.location.href='index.html'"><p class = "helveticaSmall">LOGOUT</button>
+		<button class="btn1 logOut topright" onclick="logout()"><p class = "helveticaSmall">LOGOUT</button>
 		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">"START"</button>
         <button onclick="runThis()">Click!</button>
 
