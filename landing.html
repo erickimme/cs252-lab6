@@ -119,17 +119,21 @@
 
 function runThis() {
   //var user = firebase.auth().currentUser;
-  alert("before JSON");
+  alert("before");
   /*loadJSON(function(resonse) {
     jsonresponse = JSON.parse(response);
     alert(jsonresponse[0].email)
   });*/
-  $.getJSON("jAuth.json", function(json) {
+  /*$.getJSON("jAuth.json", function(json) {
     //console.log(json); // this will show the info it in firebug console
     alert("success");
     alert(json[0].email);
     alert(json[0].password);
-  });
+  });*/
+  var email = localStorage.getItem("email");
+  var password = localStorage.getItem("password");
+  alert(email);
+  alert(password);
   alert("progressed");
 }
 /*
