@@ -98,6 +98,17 @@
   firebase.initializeApp(config);
 </script>
 <script>
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      window.location.assign("landing.html");
+    } else {
+      // No user is signed in.
+      alert("not signed in");
+    }
+  });
+
 	function main() {
     //document.getElementById('submitBtn').addEventListener('click', firebaseAction, false);
 		loginOrSignup();
@@ -228,14 +239,10 @@
         //document.getElementById('submitBtn').disabled = false;
         // [END_EXCLUDE]
       });
-      alert("signed in: " + signedIn);
-      if(signedIn === 1) {
-        localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
-        window.location.assign("landing.html");
-      }
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
 
-      return;
+      //return;
       // [END authwithemail]
         // User is signed in.
     }
