@@ -144,29 +144,7 @@
 			document.getElementById("submitBtn").setAttribute("class", "btn submitRed");
 		}
 
-    /*var userSignedIn = firebase.auth().currentUser;
-    if(userSignedIn){
-      firebase.auth().onAuthStateChanged(function(user) {
-      alert(user);
-        if (user) {
-          // User is signed in.
-          var butt = document.getElementById("submitBtn");
-          butt.onclick = handler;
-          function handler() {
-            window.location.assign("landing.html");
-            return false;
-          }
-        }
-      });
-    } else {
-      var butt = document.getElementById("submitBtn");
-      butt.onclick = handler;
-      function handler() {
-        firebaseAction();
-        return false;
-      }
-    }*/
-    /*var user = firebase.auth().currentUser;
+    var user = firebase.auth().currentUser;
     if (user) {
       // User is signed in.
       alert("signed in");
@@ -185,8 +163,7 @@
         firebaseAction();
         return false;
       }
-    }*/
-    firebaseAction();
+    }
 	}
 
 	function getParameterByName(name, url) {
@@ -209,12 +186,12 @@
   }
 
   function toggleSignIn() {
-    var signedIn = 1;
     if (firebase.auth().currentUser) {
       // [START signout]
       firebase.auth().signOut();
       // [END signout]
     } else {
+      var signedIn = 1;
       var email = document.getElementById('emailField').value;
       var password = document.getElementById('passwordField').value;
       if (email.length < 4) {
@@ -243,35 +220,13 @@
         // [END_EXCLUDE]
       });
 
-      // set persistence 
-
-      /*
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(function() {
-        // Existing and future Auth states are now persisted in the current
-        // session only. Closing the window would clear any existing state even
-        // if a user forgets to sign out.
-        // ...
-        // New sign-in will be persisted with session persistence.
-        return firebase.auth().signInWithEmailAndPassword(email, password);
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-      });
-      */
-      /*var obj = [{"email": email, "password": password}];
-      saveText(JSON.stringify(obj), "jAuth.json");*/
       if(signedIn == 1){
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
         window.location.assign("landing.html");
       }
-      
-      //
-      //return;
 
+      return;
       // [END authwithemail]
         // User is signed in.
     }
