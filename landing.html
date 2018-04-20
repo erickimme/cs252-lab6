@@ -111,7 +111,6 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 function main1() {
   if (!(firebase.auth().currentUser)) {
-    alert("loads!");
     var email = localStorage.getItem("email");
     var password = localStorage.getItem("password");
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
