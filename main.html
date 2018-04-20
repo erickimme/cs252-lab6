@@ -105,7 +105,6 @@
       window.location.assign("landing.html");
     } else {
       // No user is signed in.
-      alert("not signed in");
     }
   });
 
@@ -155,27 +154,6 @@
 			document.getElementById("submitBtn").setAttribute("class", "btn submitRed");
 		}
 
-    /*var user = firebase.auth().currentUser;
-    if (user) {
-      // User is signed in.
-      alert("signed in");
-      var butt = document.getElementById("submitBtn");
-      butt.onclick = handler;
-      function handler() {
-        window.location.assign("landing.html");
-        return false;
-      }
-    } else {
-      // No user is signed in.
-      alert("not signed in");
-      var butt = document.getElementById("submitBtn");
-      butt.onclick = handler;
-      function handler() {
-        firebaseAction();
-        return false;
-      }
-    }*/
-
     var butt = document.getElementById("submitBtn");
     butt.onclick = handler;
     function handler() {
@@ -222,10 +200,8 @@
       }
       // Sign in with email and pass.
       // [START authwithemail]
-      alert(email + " " + password);
       firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
-        alert("ERROR REACHED!!");
         var errorCode = error.code;
         var errorMessage = error.message;
         signedIn = 0;
@@ -236,17 +212,13 @@
           alert(errorMessage);
         }
         console.log(error);
-        //document.getElementById('submitBtn').disabled = false;
         // [END_EXCLUDE]
       });
       localStorage.setItem("email", email);
       localStorage.setItem("password", password);
 
-      //return;
       // [END authwithemail]
-        // User is signed in.
     }
-    //document.getElementById('submitBtn').disabled = true;
   }
 
   function handleSignUp() {
@@ -273,13 +245,10 @@
         alert(errorMessage);
       }
       console.log(error);
-      //document.getElementById('submitBtn').disabled = false;
       // [END_EXCLUDE]
     });
-    //document.getElementById('submitBtn').disabled = true;
     window.location.assign("index.html");
     alert("Your account has been created! Please proceed to the log in panel.")
-    //return false;
     // [END createwithemail]
   }
 

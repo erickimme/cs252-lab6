@@ -117,11 +117,32 @@
 
 }*/
 
+function main1() {
+  if (!(firebase.auth().currentUser)) {
+    alert("loads!");
+    var email = localStorage.getItem("email");
+    var password = localStorage.getItem("password");
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      signedIn = 0;
+      // [START_EXCLUDE]
+      if (errorCode === 'auth/wrong-password') {
+        alert('Wrong password.');
+      } else {
+        alert(errorMessage);
+      }
+      console.log(error);
+      // [END_EXCLUDE]
+    });
+  }
+}
+
 function runThis() {
   var email = localStorage.getItem("email");
   var password = localStorage.getItem("password");
   alert(email + " " + password);
-  alert("progressed");
 }
 
 function logout() {
@@ -141,7 +162,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 </script>
 </head>
 <html>
-	<body>
+	<body onload="main1()">
 		<button class="btn1 logOut topright" onclick="logout()"><p class = "helveticaSmall">LOGOUT</button>
 		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">"START"</button>
         <button onclick="runThis()">Click!</button>
