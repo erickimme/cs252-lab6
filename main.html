@@ -169,6 +169,7 @@
     var user = firebase.auth().currentUser;
     if (user) {
       // User is signed in.
+      alert("signed in");
       var butt = document.getElementById("submitBtn");
       butt.onclick = handler;
       function handler() {
@@ -177,6 +178,7 @@
       }
     } else {
       // No user is signed in.
+      alert("not signed in");
       var butt = document.getElementById("submitBtn");
       butt.onclick = handler;
       function handler() {
