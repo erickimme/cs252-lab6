@@ -215,23 +215,49 @@ function checkWord() {
   	display.setAttribute("class", "helveticaLarge wordPos");
  }
 
- function isSafe(grid, i, j, visited, currConnected) {
- 	return (i >= 0) && (i < 13) && (j >= 0) && (j < 11) && 
- 		((grid[i][j].color.localeCompare(color) == 0) && !visited[row][col]);
+ function isSafe(grid, i, j, visited, currConnected, turnColor) {
+ 	console.log("in is safe");
+ 	if (i < 0 || i >= rows || j < 0 || j >= cols || visited[i][j]) {
+ 		return false;
+ 	}
+ 	console.log(i, j);
+ 	console.log(grid[i][j].color);
+ 	console.log(visited[i][j]);
+ 	return (grid[i][j].color === turnColor);
  }
 
- function DFS(grid, i, j, visited, currConnected, color) {
+ function DFS(grid, i, j, visited, currConnected, turnColor) {
  	// populate the currConnected array with cells that are connected
  	var rowDelta = new Array(-1, -1, -1,  0, 0,  1, 1, 1);
  	var colDelta = new Array(-1,  0,  1, -1, 1, -1, 0, 1);
 
- 	console.log("entered DFS");
+ 	//console.log("entered DFS");
 
  	visited[i][j] = true;
  	for (var k = 0; k < 8; k++) {
- 		if (isSafe(grid, i + rowDelta[k], j + colDelta[k], visited, currConnected, color)) {
- 			currConnected.push(i + " " + j);
-        	DFS(grid, i + rowDelta[k], j + colDelta[k], visited, currConnected, color);
+ 		if (isSafe(grid, i + rowDelta[k], j + colDelta[k], visited, currConnected, turnColor)) {
+ 			console.log("pushed " + (i + rowDelta[k]) + ", " + (j + colDelta[k]));
+ 			currConnected.push((i + rowDelta[k]) + " " + (j + colDelta[k]));
+        	currConnected = DFS(grid, i + rowDelta[k], j + colDelta[k], visited, currConnected, turnColor);
+ 		}
+ 	}
+
+ 	return currConnected;
+ }
+
+ function containsBaseLine(component, turn) {
+ 	var level = -1;
+ 	if (turn == 1) {
+ 		level = 12;
+ 	} else if (turn == 2) {
+ 		level = 0;
+ 	}
+
+
+ 	for (var i = 0; i < component.length; i++) {
+ 		var cellCoords = component[i].split(" ");
+ 		if (cellCoords[0] == level) {
+ 			return true;
  		}
  	}
  }
@@ -247,24 +273,28 @@ function checkWord() {
  	}
 
  	var turnColor;
+ 	// turn color is color of opposite turn
  	if (turn == 1) {
- 		turnColor = "lightBlue";
+ 		turnColor = "red";
  	} else if (turn == 2) {
- 		turnColor = "lightRed";
+ 		turnColor = "blue";
  	}
 
  	// find connected component that is not attached to the base row of the color and erase it
  	var count = 0;
  	for (var x = 0; x < rows; x++) {
  		for (var y = 0; y < cols; y++) {
- 			 console.log(x, y);
- 			 console.log(grid[x][y].color);
- 			// console.log(grid[x][y].setColor);
+ 			console.log(x, y);
+ 			console.log(grid[x][y].color);
+ 			console.log(visited[x][y]);
+ 			//console.log(grid[x][y].setColor);
 
  			if (visited[x][y] == false && (grid[x][y].color === turnColor)) {
- 				console.log("IN TOP");
+ 				visited[x][y] = true;
  				var currConnected = [];
- 				DFS(grid, x, y, visited, currConnected, turnColor);
+ 				currConnected.push(x + " " + y);
+ 				currConnected = DFS(grid, x, y, visited, currConnected, turnColor);
+ 				console.log(currConnected);
  				connectedComponents.push(currConnected);
  				count++;
  			}
@@ -273,42 +303,26 @@ function checkWord() {
 
  	// print out all conneted components to console
  	for (var first = 0; first < connectedComponents.length; first++) {
- 		console.log("SEPERATOR!!!!");
  		for (var sec = 0; sec < connectedComponents[first].length; sec++) {
  			console.log(connectedComponents[first][sec]);
  		}
  	}
 
- 	return;
-
  	// if there is more than one connected component of that color
- 	// if (count > 1) {
- 	// 	// get rid of all conected components
- 	// 	// first array in connectedComponents hsould be the one containing base lines
- 	// 	for (var i = 1; i < connectedComponents.length; i++) {
- 	// 		// change all blocks in the connected componenet to white
- 	// 		for (var j = 0; j < connectedComponents[i].length; j++) {
- 	// 			var cellCoords = connectedComponents[i][j].split(" ");
-		// 		var coordsX = cellCoords[0];
-		// 		var coordsY = cellCoords[1];
+ 	if (count > 1) {
+ 		// get rid of all conected components not connected to base
+ 		for (var i = 0; i < connectedComponents.length; i++) {
+ 			// change all blocks in the connected componenet to white
+ 			if (!containsBaseLine(connectedComponents[i], turn)) {
+	 			for (var j = 0; j < connectedComponents[i].length; j++) {
+	 				var cellCoords = connectedComponents[i][j].split(" ");
+					var coordsX = cellCoords[0];
+					var coordsY = cellCoords[1];
 
-		// 		var islandCell = grid[coordsX][coordsY];
-		// 		islandCell.colorIn(0);
- 	// 		}
- 	// 	}
- 	// }
+					var islandCell = grid[coordsX][coordsY];
+					islandCell.colorIn(0);
+	 			}
+ 			}
+ 		}
+ 	}
  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
