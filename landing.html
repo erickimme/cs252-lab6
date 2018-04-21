@@ -100,9 +100,14 @@
 </script>
 <script>
 
+var database = firebase.database();
+var email = localStorage.getItem("email");
+var password = localStorage.getItem("password");
+
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
+    signedInAction();
   } else {
     // No user is signed in.
     window.location.href='index.html';
@@ -130,16 +135,43 @@ function main1() {
   }
 }
 
-function runThis() {
-  var email = localStorage.getItem("email");
-  var password = localStorage.getItem("password");
-  alert(email + " " + password);
+// testing purposes 
+function signedInAction() { 
+  var user = firebase.auth().currentUser;
+  var uid;
+
+  if (user != null) {
+    uid = user.uid;
+  }
+  writeUserData(uid, "testUserName", "ayy lmao", 7)
 }
 
+function writeUserData(userId, username,longestWord, avgWord) {
+  firebase.database().ref('users/' + userId).set({
+    username: username,
+    longestWord: email,
+    avgWord : avgWord
+  });
+}
+
+// logout and segue back to main page via auth listener
 function logout() {
   firebase.auth().signOut();
   return;
 }
+
+// testing purposes as well
+function runThis() {
+  var userId = firebase.auth().currentUser.uid;
+  return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+    var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+    var longestWord = (snapshot.val() && snapshot.val().longestWord);
+    var avgWord = (snapshot.val() && snapshot.val().avgWord);
+
+    alert("1: " + username + " 2: " + longestWord + " 3: " + avgWord);
+  });
+}
+
 /*
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
