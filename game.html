@@ -69,6 +69,28 @@
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/addons/p5.sound.min.js"></script>
 		<script src="control.js"></script>
 		<script src="cell.js"></script>
+    <script>
+      function main2() {
+        if (!(firebase.auth().currentUser)) {
+          var email = localStorage.getItem("email");
+          var password = localStorage.getItem("password");
+          firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            signedIn = 0;
+            // [START_EXCLUDE]
+            if (errorCode === 'auth/wrong-password') {
+              alert('Wrong password.');
+            } else {
+              alert(errorMessage);
+            }
+            console.log(error);
+            // [END_EXCLUDE]
+          });
+        }
+      }
+    </script>
 	</head>
 
 	<body>
