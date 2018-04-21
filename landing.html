@@ -149,7 +149,7 @@ function signedInAction() {
 function writeUserData(userId, username,longestWord, avgWord) {
   firebase.database().ref('users/' + userId).set({
     username: username,
-    longestWord: email,
+    longestWord: longestWord,
     avgWord : avgWord
   });
 }
