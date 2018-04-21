@@ -96,7 +96,34 @@ function getChar() {
 	return alphabet[foundIndex];
 }
 
-function gameOver() {
+
+function isGameOver(turn) {
+	/** check if there is red in blue starting area or blue
+	 in red starting area depending on which turn it is **/
+	 var checkColor;
+	 var checkRow;
+	 if (turn == 1) {
+	 	checkRow = 12;
+	 	checkColor = "lightBlue";
+	 } else if (turn == 2) {
+	 	checkRow = 0;
+	 	checkColor = "lightRed";
+	 }
+
+	 for (var j = 0; j < cols; j++) {
+	 	if (grid[checkRow][j].color === checkColor) {
+	 		return true;
+	 	}
+	 }
+
+	 return false;
+}
+
+function gameOver(turn) {
+	// handle game over
+	console.log("in win");
+
+
 
 }
 
@@ -129,7 +156,6 @@ function mousePressed() {
 			var curr = grid[x][y];
 
 	    	if (grid[x][y].contains(mouseX, mouseY)) {
-		      	console.log(word);
 		      	if (word.length === 0) {
 		      		// if choosing first letter, must start at an already owned block
 		      		if ((turn == 1 && grid[x][y].color.localeCompare("blue") == 0) ||
@@ -177,6 +203,19 @@ function checkWord() {
 		// Find connected components that are not linked to each person's base line
 		removeIslands(turn);
 
+		// for (var i = 0; i < rows; i++) {
+		// 	for (var j = 0; j < cols; j++) {
+		// 		console.log(i, j);
+		// 		console.log(grid[i][j].color);
+		// 	}
+		// }
+
+		// // check if game over
+		if (isGameOver(turn)) {
+			gameOver(turn);
+			return;
+		}
+
 		// switch user + reset word, wordcCoords, wordField
 		if (turn == 1) {
 			turn = 2;
@@ -216,13 +255,10 @@ function checkWord() {
  }
 
  function isSafe(grid, i, j, visited, currConnected, turnColor) {
- 	console.log("in is safe");
  	if (i < 0 || i >= rows || j < 0 || j >= cols || visited[i][j]) {
  		return false;
  	}
- 	console.log(i, j);
- 	console.log(grid[i][j].color);
- 	console.log(visited[i][j]);
+
  	return (grid[i][j].color === turnColor);
  }
 
@@ -231,12 +267,9 @@ function checkWord() {
  	var rowDelta = new Array(-1, -1, -1,  0, 0,  1, 1, 1);
  	var colDelta = new Array(-1,  0,  1, -1, 1, -1, 0, 1);
 
- 	//console.log("entered DFS");
-
  	visited[i][j] = true;
  	for (var k = 0; k < 8; k++) {
  		if (isSafe(grid, i + rowDelta[k], j + colDelta[k], visited, currConnected, turnColor)) {
- 			console.log("pushed " + (i + rowDelta[k]) + ", " + (j + colDelta[k]));
  			currConnected.push((i + rowDelta[k]) + " " + (j + colDelta[k]));
         	currConnected = DFS(grid, i + rowDelta[k], j + colDelta[k], visited, currConnected, turnColor);
  		}
@@ -284,17 +317,11 @@ function checkWord() {
  	var count = 0;
  	for (var x = 0; x < rows; x++) {
  		for (var y = 0; y < cols; y++) {
- 			console.log(x, y);
- 			console.log(grid[x][y].color);
- 			console.log(visited[x][y]);
- 			//console.log(grid[x][y].setColor);
-
  			if (visited[x][y] == false && (grid[x][y].color === turnColor)) {
  				visited[x][y] = true;
  				var currConnected = [];
  				currConnected.push(x + " " + y);
  				currConnected = DFS(grid, x, y, visited, currConnected, turnColor);
- 				console.log(currConnected);
  				connectedComponents.push(currConnected);
  				count++;
  			}
@@ -302,11 +329,11 @@ function checkWord() {
  	}
 
  	// print out all conneted components to console
- 	for (var first = 0; first < connectedComponents.length; first++) {
- 		for (var sec = 0; sec < connectedComponents[first].length; sec++) {
- 			console.log(connectedComponents[first][sec]);
- 		}
- 	}
+ 	// for (var first = 0; first < connectedComponents.length; first++) {
+ 	// 	for (var sec = 0; sec < connectedComponents[first].length; sec++) {
+ 	// 		console.log(connectedComponents[first][sec]);
+ 	// 	}
+ 	// }
 
  	// if there is more than one connected component of that color
  	if (count > 1) {
