@@ -218,7 +218,16 @@
       localStorage.setItem("email", email);
       localStorage.setItem("password", password);
 
-      // [END authwithemail]
+      var user = firebase.auth().currentUser;
+      var uid;
+      var username = localStorage.getItem("username");
+
+      if (user != null) {
+        uid = user.uid;
+      }
+      // initialize database 
+      writeUserData(uid, username, "", 0);
+        // [END authwithemail]
     }
   }
 
@@ -241,14 +250,7 @@
       return;
     }
 
-    var user = firebase.auth().currentUser;
-    var uid;
-
-    if (user != null) {
-      uid = user.uid;
-    }
-    // initialize database 
-    writeUserData(uid, username, "", 0);
+    localStorage.setItem("username", username);
     // Sign in with email and pass.
     // [START createwithemail]
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
