@@ -139,11 +139,13 @@ function main1() {
 function signedInAction() { 
   var user = firebase.auth().currentUser;
   var uid;
+  var username = localStorage.getItem("username");
 
   if (user != null) {
     uid = user.uid;
   }
-  writeUserData(uid, "testUserName", "ayy lmao", 7)
+
+  writeUserData(uid, username, "asmr is bae", 12);
 }
 
 function writeUserData(userId, username,longestWord, avgWord) {
@@ -167,7 +169,7 @@ function runThis() {
     var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
     var longestWord = (snapshot.val() && snapshot.val().longestWord);
     var avgWord = (snapshot.val() && snapshot.val().avgWord);
-    
+
     alert("1: " + username + " 2: " + longestWord + " 3: " + avgWord);
   });
 }
