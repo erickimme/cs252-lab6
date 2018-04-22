@@ -271,6 +271,14 @@
     // [END createwithemail]
   }
 
+  function writeUserData(userId, username,longestWord, avgWord) {
+    firebase.database().ref('users/' + userId).set({
+      username: username,
+      longestWord: longestWord,
+      avgWord : avgWord
+    });
+  }
+
   function saveText(text, filename){
     var a = document.createElement('a');
     a.setAttribute('href', 'data:text/plain;charset=utf-u,'+encodeURIComponent(text));
