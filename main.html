@@ -98,6 +98,7 @@
   firebase.initializeApp(config);
 </script>
 <script>
+  var database = firebase.database();
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -224,6 +225,13 @@
   function handleSignUp() {
     var email = document.getElementById('emailField').value;
     var password = document.getElementById('passwordField').value;
+    var username = document.getElementById('usernameField').value;
+
+    if (username.length < 2) {
+      alert('Please enter a username.');
+      return;
+    }
+
     if (email.length < 4) {
       alert('Please enter an email address.');
       return;
@@ -232,6 +240,15 @@
       alert('Please enter a password.');
       return;
     }
+
+    var user = firebase.auth().currentUser;
+    var uid;
+
+    if (user != null) {
+      uid = user.uid;
+    }
+    // initialize database 
+    writeUserData(uid, username, "", 0);
     // Sign in with email and pass.
     // [START createwithemail]
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
