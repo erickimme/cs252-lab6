@@ -8,6 +8,9 @@ function make2DArray(cols, rows) {
 
 function prepGame() {
 	console.log("in prep game");
+	longestWord = "";
+	totalLength = 0;
+	numWords = 0;
 	var afterGame = document.getElementById("afterGame");
   	afterGame.style.display = "none";
   	var forGame = document.getElementById("duringGame");
@@ -29,6 +32,9 @@ var w = 50;
 var turn = 1; // player 1's turn first
 var word = ""; // word the player is forming
 var wordCoords = []; // indexes of the word the player is forming
+var longestWord = "";
+var totalLength = 0;
+var numWords = 0;
 
 var alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M',
 	'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
@@ -201,6 +207,27 @@ function mousePressed() {
 	}
 }
 
+function isValid(word) {
+	// fetch("https://wordsapiv1.p.mashape.com/words/soliloquy", {
+	// 	headers: {
+	// 		"X-Mashape-Key":"qgGsAcowYfmsh1HPJGVMvXHOAzpHp19qyavjsnm2Kjvx78TQdl",
+	// 		"Accept":"application/json",
+	// 	},
+	// 	"mode":"no-cors"
+
+	// }).then(function(reponse){
+	// 	return response.json();
+	// }).then(function(response) {
+	// 	console.log(response);
+	//   //console.log(response.status, response.headers, response.body);
+	// })
+
+	getWord(word);
+	
+
+	return true;
+}
+
 // check if word is valid and switch turns if user did enter valid
 function checkWord() {
 	if (word == "") {
@@ -209,9 +236,23 @@ function checkWord() {
 	}
 
 	// TODO: change checking: check if word is valid
+//	var validWord = isValid(word);
 	var validWord = true;
 
 	if (validWord) {
+		numWords++;
+		totalLength += word.length;
+		if (word.length > longestWord.length) {
+			longestWord = word;
+		}
+
+		var avgLength = (totalLength + 0.0)/ numWords;
+		avgLength = avgLength.toFixed(3);
+		console.log("average length: ");
+		console.log(avgLength);
+		console.log("longestWord: ");
+		console.log(longestWord);
+
 		// Change color to dark version for the current color
 		for (var i = 0; i < wordCoords.length; i++) {
 			var coords = wordCoords[i].split(" ");
@@ -221,13 +262,6 @@ function checkWord() {
 		// Check if any of the opponents blocks are not connected
 		// Find connected components that are not linked to each person's base line
 		removeIslands(turn);
-
-		// for (var i = 0; i < rows; i++) {
-		// 	for (var j = 0; j < cols; j++) {
-		// 		console.log(i, j);
-		// 		console.log(grid[i][j].color);
-		// 	}
-		// }
 
 		// // check if game over
 		if (isGameOver(turn)) {
@@ -248,6 +282,8 @@ function checkWord() {
 	} else {
 		// if not valid, let user know the word is not valid and erase the highlighed portion
 		alert("\"" + word + "\" is not a valid word, please find a valid English word");
+		word = "";
+		wordCoords = [];
 		clearWord();
 	}
 }
@@ -372,3 +408,9 @@ function checkWord() {
  		}
  	}
  }
+
+ // module.exports = {
+ // 	getCurrWord: function() {
+ // 		return word;
+ // 	}
+ // };

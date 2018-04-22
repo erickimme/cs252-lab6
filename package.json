@@ -1,0 +1,24 @@
+{
+  "name": "vernacular",
+  "version": "1.0.0",
+  "description": "Andrew Liu: liu1846@purdue.edu Eric Zhang: zhan2575@purdue.edu",
+  "main": "index.html",
+  "dependencies": {
+    "express": "^4.16.3",
+    "unirest": "^0.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LiuXinA/cs252-lab6.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LiuXinA/cs252-lab6/issues"
+  },
+  "homepage": "https://github.com/LiuXinA/cs252-lab6#readme"
+}
