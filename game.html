@@ -13,11 +13,10 @@
       font-weight: bold;
     }
 
-	.checkPos { position: absolute; top: 320px; right: 280px; text-align: left;}
-	.cancelPos { position: absolute; top: 400px; right: 280px; text-align: left;}
-    .wordPos {position: absolute; top: 240px; right: 280px; text-align: left;}
-
-	.topright { position: absolute; top: : 5px; right: 15px; text-align: right;}
+  	.checkPos { position: absolute; top: 320px; right: 280px; text-align: left;}
+  	.cancelPos { position: absolute; top: 400px; right: 280px; text-align: left;}
+    .wordPos {position: absolute; top: 260px; right: 280px; text-align: center;}
+  	.topright { position: absolute; top: : 5px; right: 15px; text-align: right;}
 
     .btn {
         border: none;
@@ -60,13 +59,24 @@
 
     .cancelWordOne:focus {outline:0;}
 
+    .returnToHome {
+      background-color: white;
+      color: black;
+    }
+
+    .returnToHome:hover {
+      color: lightgrey;
+    }
+
+    .returnToHome:focus {outline:0;}
+
   </style>
 </head>
 <html>
 	<head>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/p5.min.js"></script>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/addons/p5.dom.min.js"></script>
-	    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/addons/p5.sound.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/p5.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/addons/p5.dom.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/addons/p5.sound.min.js"></script>
 		<script src="control.js"></script>
 		<script src="cell.js"></script>
     <script>
@@ -94,9 +104,15 @@
 	</head>
 
 	<body>
-		<button class="btn quitGame topright" onclick="window.location.href='landing.html'"><p class="helveticaSmall">QUIT GAME</button>
-    	<button class="btn checkWordOne checkPos" onclick="checkWord()"><p class="helveticaLarge">CHECK WORD</button>
-    	<button class="btn cancelWordOne cancelPos" onclick="clearWord()"><p class="helveticaLarge">CANCEL WORD</button>
-    	<text id="currentWord" class="wordPos"><p class="helveticaLarge" style:"display:inline">""</text>
+    <div id="duringGame">
+  		<button class="btn quitGame topright" onclick="window.location.href='landing.html'"><p class="helveticaSmall">QUIT GAME</button>
+      <button class="btn checkWordOne checkPos" onclick="checkWord()"><p class="helveticaLarge">CHECK WORD</button>
+      <button class="btn cancelWordOne cancelPos" onclick="clearWord()"><p class="helveticaLarge">CANCEL WORD</button>
+      <text id="currentWord" class="wordPos"><p class="helveticaLarge" style:"display:inline">""</text>
+    </div>
+    <div id="afterGame">
+      <text id="gameOver" class="wordPos"><p class="helveticaLarge">"GAME OVER"</text>
+      <br><button class="btn returnToHome" onclick="window.location.href='landing.html'"><p class="helveticaLarge">RETURN TO HOME</button>
+    </div>
 	</body>
 </html>

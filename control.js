@@ -6,6 +6,22 @@ function make2DArray(cols, rows) {
   return arr;
 }
 
+function prepGame() {
+	console.log("in prep game");
+	var afterGame = document.getElementById("afterGame");
+  	afterGame.style.display = "none";
+  	var forGame = document.getElementById("duringGame");
+  	forGame.style.display = "block";
+}
+
+function prepFinish() {
+	console.log("in prep finish");
+  	var forGame = document.getElementById("duringGame");
+  	forGame.style.display = "none";
+  	var afterGame = document.getElementById("afterGame");
+  	afterGame.style.display = "block";
+}
+
 var grid;	// 13 rows by 11 cols
 var cols;	// default of 11
 var rows;	// default of 13
@@ -22,7 +38,9 @@ var frequencies = [10.167, 1.492, 2.782, 4.253, 12.702, 2.228, 2.015,
 var cumFrequencies = []; // populated in setup
 
 function setup() {
+  prepGame();
   createCanvas(551, 651);
+
   cols = floor(width / w);
   rows = floor(height / w);
   grid = make2DArray(cols, rows);
@@ -123,7 +141,8 @@ function gameOver(turn) {
 	// handle game over
 	console.log("in win");
 
-
+	// minimize all UI components and display Game Over and return to landing page button
+	prepFinish();
 
 }
 
