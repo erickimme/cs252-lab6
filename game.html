@@ -13,10 +13,11 @@
       font-weight: bold;
     }
 
+    .topright { position: absolute; top: : 5px; right: 15px; text-align: right;}
   	.checkPos { position: absolute; top: 320px; right: 280px; text-align: left;}
   	.cancelPos { position: absolute; top: 400px; right: 280px; text-align: left;}
     .wordPos {position: absolute; top: 260px; right: 280px; text-align: center;}
-  	.topright { position: absolute; top: : 5px; right: 15px; text-align: right;}
+    .turnPos {position: absolute; top: 180px; right: 280px; text-align: right;}
 
     .btn {
         border: none;
@@ -48,6 +49,17 @@
 
     .checkWordOne:focus {outline:0;}
 
+    .checkWordTwo {
+      background-color: white;
+      color: black;
+    }
+
+    .checkWordTwo:hover {
+      color: salmon;
+    }
+
+    .checkWordTwo:focus {outline:0;}
+
     .cancelWordOne {
       background-color: white;
       color: black;
@@ -59,6 +71,17 @@
 
     .cancelWordOne:focus {outline:0;}
 
+    .cancelWordTwo {
+      background-color: white;
+      color: black;
+    }
+
+    .cancelWordTwo:hover {
+      color: salmon;
+    }
+
+    .cancelWordTwo:focus {outline:0;}
+
     .returnToHome {
       background-color: white;
       color: black;
@@ -69,6 +92,16 @@
     }
 
     .returnToHome:focus {outline:0;}
+
+    .currentTurnOne {
+      background-color: white;
+      color: #58ACFA;
+    }
+
+    .currentTurnTwo {
+      background-color: white;
+      color: #FA5858;
+    }
 
   </style>
 </head>
@@ -143,9 +176,10 @@
 	<body onload="main2()">
     <div id="duringGame">
   		<button class="btn quitGame topright" onclick="window.location.href='landing.html'"><p class="helveticaSmall">QUIT GAME</button>
-      <button class="btn checkWordOne checkPos" onclick="checkWord()"><p class="helveticaLarge">CHECK WORD</button>
-      <button class="btn cancelWordOne cancelPos" onclick="clearWord()"><p class="helveticaLarge">CANCEL WORD</button>
-      <text id="currentWord" class="wordPos"><p class="helveticaLarge" style:"display:inline">""</text>
+      <button id="checkButton" class="btn checkWordOne checkPos" onclick="checkWord()"><p class="helveticaLarge">CHECK WORD</button>
+      <button id="cancelButton" class="btn cancelWordOne cancelPos" onclick="clearWord()"><p class="helveticaLarge">CANCEL WORD</button>
+      <text id="currentWord" class="wordPos"><p class="helveticaLarge">""</p></text>
+      <text id="currentTurn" class="turnPos currentTurnOne"><p class="helveticaLarge">PLAYER ONE</p></text>  
     </div>
     <div id="afterGame">
       <text id="gameOver" class="wordPos"><p class="helveticaLarge">"GAME OVER"</text>

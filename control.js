@@ -184,6 +184,10 @@ function mousePressed() {
 			var curr = grid[x][y];
 
 	    	if (grid[x][y].contains(mouseX, mouseY)) {
+	    		if (word.length >= 21) {
+	    			alert("You have reached the max length for a word");
+	    			return;
+	    		}
 		      	if (word.length === 0) {
 		      		// if choosing first letter, must start at an already owned block
 		      		if ((turn == 1 && grid[x][y].color.localeCompare("blue") == 0) ||
@@ -277,6 +281,19 @@ function checkWord() {
 			turn = 2;
 		} else if(turn == 2){
 			turn = 1;
+		}
+
+		// change color of player and button button highlight
+		if (turn == 1) {
+			document.getElementById("currentTurn").innerHTML = "PLAYER ONE";
+			document.getElementById("currentTurn").setAttribute("class", " turnPos currentTurnOne helveticaLarge");
+			document.getElementById("checkButton").setAttribute("class", "btn checkWordOne checkPos");
+			document.getElementById("cancelButton").setAttribute("class", "btn cancelWordOne cancelPos");
+		} else if (turn == 2) {
+			document.getElementById("currentTurn").innerHTML = "PLAYER TWO";
+			document.getElementById("currentTurn").setAttribute("class", " turnPos currentTurnTwo helveticaLarge");
+			document.getElementById("checkButton").setAttribute("class", "btn checkWordTwo checkPos");
+			document.getElementById("cancelButton").setAttribute("class", "btn cancelWordTwo cancelPos");
 		}
 
 		word = "";
