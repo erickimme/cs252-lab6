@@ -188,6 +188,7 @@ function mousePressed() {
 	    			alert("You have reached the max length for a word");
 	    			return;
 	    		}
+
 		      	if (word.length === 0) {
 		      		// if choosing first letter, must start at an already owned block
 		      		if ((turn == 1 && grid[x][y].color.localeCompare("blue") == 0) ||
@@ -237,9 +238,40 @@ function isValid(word) {
 
 // check if word is valid and switch turns if user did enter valid
 function checkWord() {
+	// check if length of word selected is valid
 	if (word == "") {
 		alert("Please select a valid word");
 		return;
+	}
+	if (word.length <= 1) {
+   		alert("Selected word must be larger than a length of one");
+   		word = "";
+   		wordCoords = [];
+   		clearWord();
+	    return;
+	}
+
+	// check if all letters of selected word is preowned or not
+	var oldColor;
+	var turnColor;
+	if (turn == 1) {
+		oldColor = "blue";
+	} else if (turn == 2) {
+		oldColor = "red";
+	}
+	for (var i = 0; i < wordCoords.length; i++) {
+		var coords = wordCoords[i].split(" ");
+		if (!(grid[coords[0]][coords[1]].setColor === oldColor)) {
+			break;
+		}
+		if (i == wordCoords.length - 1) {
+			// all letters selected for word are already owned
+			alert("Make sure your word does not consist completely of previously owned letters");
+			word = "";
+   			wordCoords = [];
+   			clearWord();
+			return;
+		}
 	}
 
 	// TODO: change checking: check if word is valid
