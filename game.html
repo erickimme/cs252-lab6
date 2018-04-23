@@ -77,9 +77,45 @@
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/p5.min.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/addons/p5.dom.min.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.9/addons/p5.sound.min.js"></script>
-		<script src="control.js"></script>
-		<script src="cell.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
     <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBjOcpo1a3uAHLuwYzhgE71AiZS4Pj2GJo",
+        authDomain: "cs252vernacular.firebaseapp.com",
+        databaseURL: "https://cs252vernacular.firebaseio.com",
+        projectId: "cs252vernacular",
+        storageBucket: "cs252vernacular.appspot.com",
+        messagingSenderId: "502978148456"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script>
+
+      var database = firebase.database();
+      var usr, uid;
+
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          usr = firebase.auth().currentUser;
+
+          if (usr != null) {
+            uid = usr.uid;
+          }
+        } else {
+          // No user is signed in.
+          window.location.href='index.html';
+        }
+      });
+
+      function writeData(userId, longestWord, avgWord) {
+        firebase.database().ref('users/' + userId).set({
+          longestWord: longestWord,
+          avgWord : avgWord
+        });
+      }
+
       function main2() {
         if (!(firebase.auth().currentUser)) {
           var email = localStorage.getItem("email");
@@ -88,7 +124,6 @@
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            signedIn = 0;
             // [START_EXCLUDE]
             if (errorCode === 'auth/wrong-password') {
               alert('Wrong password.');
@@ -101,9 +136,11 @@
         }
       }
     </script>
+    <script src="control.js"></script>
+    <script src="cell.js"></script>
 	</head>
 
-	<body>
+	<body onload="main2()">
     <div id="duringGame">
   		<button class="btn quitGame topright" onclick="window.location.href='landing.html'"><p class="helveticaSmall">QUIT GAME</button>
       <button class="btn checkWordOne checkPos" onclick="checkWord()"><p class="helveticaLarge">CHECK WORD</button>

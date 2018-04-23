@@ -146,7 +146,10 @@ function isGameOver(turn) {
 function gameOver(turn) {
 	// handle game over
 	console.log("in win");
+	var avgWord = (totalLength + 0.0)/ numWords;
+	avgWord = avgWord.toFixed(3);
 
+	writeData(uid, longestWord, avgWord);
 	// minimize all UI components and display Game Over and return to landing page button
 	prepFinish();
 

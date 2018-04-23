@@ -107,7 +107,11 @@ var password = localStorage.getItem("password");
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
-    signedInAction();
+    var usr = firebase.auth().currentUser;
+    if (usr != null) {
+      uid = usr.uid;
+    }
+    setUsername(uid, "testUserName");
   } else {
     // No user is signed in.
     window.location.href='index.html';
@@ -122,7 +126,6 @@ function main1() {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      signedIn = 0;
       // [START_EXCLUDE]
       if (errorCode === 'auth/wrong-password') {
         alert('Wrong password.');
@@ -136,21 +139,22 @@ function main1() {
 }
 
 // testing purposes 
+/*
 function signedInAction() { 
   var user = firebase.auth().currentUser;
   var uid;
+  //var username = localStorage.getItem("username");
 
   if (user != null) {
     uid = user.uid;
   }
-  writeUserData(uid, "testUserName", "ayy lmao", 7)
-}
+  writeUserData(uid, "testUserName", "", 0);
+} */
 
-function writeUserData(userId, username,longestWord, avgWord) {
+
+function setUsername(userId, username) {
   firebase.database().ref('users/' + userId).set({
     username: username,
-    longestWord: longestWord,
-    avgWord : avgWord
   });
 }
 
