@@ -15,5 +15,5 @@ Technologies we will be using + services:
 HTML5, CSS, Javascript
 Firebase
 Heroku
-Cambridge/Merriam Webster dictionary API
-Bootstrap, EaselJS
+Words API
+NPM, Express, ScrollMagic, TweenMax
