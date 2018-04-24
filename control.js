@@ -157,6 +157,10 @@ function gameOver(turn) {
 
 // check if two blocks are adjacent in all 8 directions
 function isAdjacent(x1, y1, x2, y2) {
+	if (x1 == x2 && y1 == y2) {
+		clearPressIfNeeded(x1, y1);
+		return false;
+	}
 	if (Math.abs(x1 - x2) > 1 || Math.abs(y1 - y2) > 1) {
 		return false;
 	}
@@ -181,8 +185,6 @@ function noOverlap(x, y) {
 function mousePressed() {
 	for (var x = 0; x < rows; x++) {
 		for (var y = 0; y < cols; y++) {
-			var curr = grid[x][y];
-
 	    	if (grid[x][y].contains(mouseX, mouseY)) {
 	    		if (word.length >= 21) {
 	    			alert("You have reached the max length for a word");
@@ -212,6 +214,26 @@ function mousePressed() {
 		      	resetWordField();
 	      	}
 		}
+	}
+}
+
+function clearPressIfNeeded(x, y) {
+	var curr = grid[x][y];
+	var prevCoords = wordCoords[0].split(" ");
+	// if clicked on box is the end of current word, change color back to original color
+	console.log("clicked on");
+	console.log(x, y);
+	console.log("Previous Coord");
+	console.log(prevCoords[0], prevCoords[1]);
+	if(x == prevCoords[0] && y == prevCoords[1]) {
+		if (y == 0 || y == 12) {
+			console.log("ENTERED BASE");
+			curr.resetColor();
+		} else {
+			curr.resetColor();
+		}
+		word = word.substring(0, word.length - 1);
+		console.log(wordCoords.shift());
 	}
 }
 
@@ -279,6 +301,7 @@ function checkWord() {
 	var validWord = true;
 
 	if (validWord) {
+		// change if needed, average word length + longest word
 		numWords++;
 		totalLength += word.length;
 		if (word.length > longestWord.length) {

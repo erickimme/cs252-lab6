@@ -139,18 +139,17 @@ function main1() {
 }
 
 // testing purposes 
-/*
 function signedInAction() { 
   var user = firebase.auth().currentUser;
   var uid;
-  //var username = localStorage.getItem("username");
+  var username = localStorage.getItem("username");
 
   if (user != null) {
     uid = user.uid;
   }
-  writeUserData(uid, "testUserName", "", 0);
-} */
 
+  setUsername(uid, username);
+}
 
 function setUsername(userId, username) {
   firebase.database().ref('users/' + userId).set({

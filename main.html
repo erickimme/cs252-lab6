@@ -25,6 +25,20 @@
 		font-weight: bold;
 	}
 
+  .topleft { position: absolute; top: : 5px; left: 15px; text-align: left;}
+
+  .back {
+    background-color: white;
+    color: black;
+  }
+
+  .back:hover {
+    color: lightgrey;
+  }
+
+  .back:focus {outline:0;}
+
+
 	p {
 		margin-top: 0.5em;
 		margin-bottom: 0;
@@ -98,6 +112,7 @@
   firebase.initializeApp(config);
 </script>
 <script>
+  var database = firebase.database();
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -216,14 +231,20 @@
       });
       localStorage.setItem("email", email);
       localStorage.setItem("password", password);
-
-      // [END authwithemail]
+        // [END authwithemail]
     }
   }
 
   function handleSignUp() {
     var email = document.getElementById('emailField').value;
     var password = document.getElementById('passwordField').value;
+    var username = document.getElementById('usernameField').value;
+
+    if (username.length < 2) {
+      alert('Please enter a username.');
+      return;
+    }
+
     if (email.length < 4) {
       alert('Please enter an email address.');
       return;
@@ -232,6 +253,8 @@
       alert('Please enter a password.');
       return;
     }
+
+    localStorage.setItem("username", username);
     // Sign in with email and pass.
     // [START createwithemail]
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
@@ -252,6 +275,14 @@
     // [END createwithemail]
   }
 
+  function writeUserData(userId, username,longestWord, avgWord) {
+    firebase.database().ref('users/' + userId).set({
+      username: username,
+      longestWord: longestWord,
+      avgWord : avgWord
+    });
+  }
+
   function saveText(text, filename){
     var a = document.createElement('a');
     a.setAttribute('href', 'data:text/plain;charset=utf-u,'+encodeURIComponent(text));
@@ -263,6 +294,9 @@
 </head>
 <html>
 	<body onload="main()">
+    <p>
+      <button class="btn topleft back" onclick="window.location.href='index.html'"><p class="helveticaSmall">BACK</p></button>
+    </p>
 		<table id="tbl_wrap"><tbody><tr><td id="td_wrap">
 		<p><text id="displayHeader" class="helveticaLarge"></text></p>
 		<form method="post" class="form-style">
@@ -280,7 +314,7 @@
 					<input id="passwordField" type="password" name="passwordField">
 				</p>
 				<p>
-					<button class="btn" id="submitBtn"><p class="helveticaSmall">SUBMIT</button>
+					<button class="btn" id="submitBtn"><p class="helveticaSmall">SUBMIT</p></button>
 				</p>
 			</div>
 		</form>
