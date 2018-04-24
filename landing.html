@@ -50,10 +50,21 @@
     }
 
     .startGame:hover {
-      color: salmon;
+      color: lightgrey;
     }
 
     .startGame:focus {outline:0;}
+
+    .learn {
+      background-color: white;
+      color: black;
+    }
+
+    .learn:hover {
+      color: lightgrey;
+    }
+
+    .learn:focus {outline:0;}
 
     .wrapper {
     	text-align: center;
@@ -63,19 +74,33 @@
     	position: absolute;
     	top: 53%;
     	right: 68%;
+      text-align: right;
     	border: none;
-        background-color: inherit;
-        padding: 12px 12px;
-        cursor: pointer;
-        display: inline-block;
-        outline: 0;
+      background-color: inherit;
+      padding: 12px 12px;
+      cursor: pointer;
+      display: inline-block;
+      outline: 0;
+    }
+
+    .btn3 {
+      position: absolute;
+      top: 40%;
+      right: 67.5%;
+      text-align: right;
+      border: none;
+      background-color: inherit;
+      padding: 12px 12px;
+      cursor: pointer;
+      display: inline-block;
+      outline: 0;
     }
 
     .stats {
     	margin-left: auto;
     	margin-right: auto;
     	position: absolute;
-    	top: 45%;
+    	top: 43%;
     	right: 26%;
     }
 
@@ -188,9 +213,10 @@ firebase.auth().onAuthStateChanged(function(user) {
 </head>
 <html>
 	<body onload="main1()">
-		<button class="btn1 logOut topright" onclick="logout()"><p class = "helveticaSmall">LOGOUT</button>
-		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">"START"</button>
-        <button onclick="runThis()">Click!</button>
+		<button class="btn1 logOut topright" onclick="logout()"><p class = "helveticaSmall">LOGOUT</p></button>
+    <button class="btn3 learn" onclick="window.location.href='learn.html'"><p class = "helveticaVeryLarge">"LEARN"</p></button>
+		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">"START"</p></button>
+    <button onclick="runThis()">Click!</button>
 
 		<text class="stats"><p class="helveticaMedium">"STATS"</text>
 			<table>
