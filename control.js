@@ -319,8 +319,6 @@ function formatDef(rawString) {
 }
 
 function isValid(word) {
-	nextTurn();
-	/*
 	var passed = -1;
 
 	fetch("/check?word=" + word).then(function(response){
@@ -352,7 +350,7 @@ function isValid(word) {
 	  		
 	  		nextTurn();
 		}
-	}) */
+	}) 
 }
 
 function nextTurn() {
