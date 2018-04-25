@@ -148,14 +148,12 @@ function gameOver(turn) {
 	// handle game over
 	console.log("in win");
 	var longest, avg, tempTotal, tempWords;
-	alert("before firebase " + uid);
 	// fetch values from database
 	return firebase.database().ref('/users/' + uid).once('value').then(function(snapshot) {
 
 		// if database is not initialized
 		var tempLongest = (snapshot.val() && snapshot.val().longestWord);
 		if(tempLongest === null){
-			alert("no longest");
 			longest = longestWord;
 
 			avg = (totalLength + 0.0)/ numWords;
@@ -164,17 +162,14 @@ function gameOver(turn) {
 			tempTotal = totalLength;
 			tempWords = numWords;
 
-			alert("writing data1");
 			writeData(uid, longest, avg, tempTotal, tempWords);
 			prepFinish();
 		}
 
 		// compare against existing values
 		else{
-			alert("longest exists");
 			var tempLongest = (snapshot.val() && snapshot.val().longestWord);
 			if(tempLongest.length < longestWord.length){
-				alert("overwrite longest");
 				longest = longestWord;
 			}
 			else{
@@ -193,7 +188,6 @@ function gameOver(turn) {
 			tempTotal = currTotalChars;
 			tempWords = currNumWords;
 
-			alert("writing data2");
 			writeData(uid, longest, avg, tempTotal, tempWords);
 			prepFinish();
 		}
