@@ -35,6 +35,7 @@ var wordCoords = []; // indexes of the word the player is forming
 var longestWord = "";
 var totalLength = 0;
 var numWords = 0;
+var oldWord = false;
 
 var alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M',
 	'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
@@ -232,6 +233,17 @@ function noOverlap(x, y) {
 }
 
 function mousePressed() {
+	if (oldWord) {
+		// if word is from previous turn, clear definitions
+		word = "";
+		wordCoords = [];
+		resetWordField;
+		document.getElementById("def1").innerHTML = "";
+		document.getElementById("def2").innerHTML = "";
+
+		oldWord = false;
+	}
+
 	for (var x = 0; x < rows; x++) {
 		for (var y = 0; y < cols; y++) {
 	    	if (grid[x][y].contains(mouseX, mouseY)) {
@@ -319,8 +331,6 @@ function formatDef(rawString) {
 }
 
 function isValid(word) {
-	var passed = -1;
-
 	fetch("/check?word=" + word).then(function(response){
 		return response.json();
 	}).then(function(response) {
@@ -335,7 +345,6 @@ function isValid(word) {
 			word = "";
 			wordCoords = [];
 			clearWord();
-			passed = 0;
 		} else {
 			// word does exist, get up to 2 definitions
 			def1 = "";
@@ -367,6 +376,8 @@ function nextTurn() {
 	console.log(avgLength);
 	console.log("longestWord: ");
 	console.log(longestWord);
+
+	oldWord = true;
 
 	// Change color to dark version for the current color
 	for (var i = 0; i < wordCoords.length; i++) {
@@ -404,7 +415,7 @@ function nextTurn() {
 		document.getElementById("cancelButton").setAttribute("class", "btn cancelWordTwo cancelPos");
 	}
 
-	word = "";
+	//word = "";
 	wordCoords = [];
 	resetWordField();
 }
@@ -449,62 +460,6 @@ function checkWord() {
 
 	// TODO: change checking: check if word is valid
 	isValid(word);
-
-	// if (validWord) {
-		// // change if needed, average word length + longest word
-		// numWords++;
-		// totalLength += word.length;
-		// if (word.length > longestWord.length) {
-		// 	longestWord = word;
-		// }
-
-		// var avgLength = (totalLength + 0.0)/ numWords;
-		// avgLength = avgLength.toFixed(3);
-		// console.log("average length: ");
-		// console.log(avgLength);
-		// console.log("longestWord: ");
-		// console.log(longestWord);
-
-		// // Change color to dark version for the current color
-		// for (var i = 0; i < wordCoords.length; i++) {
-		// 	var coords = wordCoords[i].split(" ");
-		// 	grid[coords[0]][coords[1]].darkenColor(turn);
-		// }
-
-		// // Check if any of the opponents blocks are not connected
-		// // Find connected components that are not linked to each person's base line
-		// removeIslands(turn);
-
-		// // // check if game over
-		// if (isGameOver(turn)) {
-		// 	gameOver(turn);
-		// 	return;
-		// }
-
-		// // switch user + reset word, wordcCoords, wordField
-		// if (turn == 1) {
-		// 	turn = 2;
-		// } else if(turn == 2){
-		// 	turn = 1;
-		// }
-
-		// // change color of player and button button highlight
-		// if (turn == 1) {
-		// 	document.getElementById("currentTurn").innerHTML = "PLAYER ONE";
-		// 	document.getElementById("currentTurn").setAttribute("class", " turnPos currentTurnOne helveticaLarge");
-		// 	document.getElementById("checkButton").setAttribute("class", "btn checkWordOne checkPos");
-		// 	document.getElementById("cancelButton").setAttribute("class", "btn cancelWordOne cancelPos");
-		// } else if (turn == 2) {
-		// 	document.getElementById("currentTurn").innerHTML = "PLAYER TWO";
-		// 	document.getElementById("currentTurn").setAttribute("class", " turnPos currentTurnTwo helveticaLarge");
-		// 	document.getElementById("checkButton").setAttribute("class", "btn checkWordTwo checkPos");
-		// 	document.getElementById("cancelButton").setAttribute("class", "btn cancelWordTwo cancelPos");
-		// }
-
-		// word = "";
-		// wordCoords = [];
-		// resetWordField();
-	//}
 }
 
 // clear previously highlighted if user clicks cancel word
