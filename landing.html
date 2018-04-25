@@ -72,8 +72,8 @@
 
     .btn2 {
     	position: absolute;
-    	top: 53%;
-    	right: 68%;
+    	top: 51.5%;
+    	right: 60%;
       text-align: right;
     	border: none;
       background-color: inherit;
@@ -86,7 +86,7 @@
     .btn3 {
       position: absolute;
       top: 40%;
-      right: 67.5%;
+      right: 60%;
       text-align: right;
       border: none;
       background-color: inherit;
@@ -100,8 +100,8 @@
     	margin-left: auto;
     	margin-right: auto;
     	position: absolute;
-    	top: 43%;
-    	right: 26%;
+    	top: 45.5%;
+    	right: 33%;
     }
 
     th, td {
@@ -128,10 +128,26 @@
 var database = firebase.database();
 var email = localStorage.getItem("email");
 var password = localStorage.getItem("password");
+var long, average, uid;
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
+    var usr = firebase.auth().currentUser;
+    if (usr) {
+    // User is signed in.
+      uid = usr.uid;
+    }
+
+    return firebase.database().ref('/users/' + uid).once('value').then(function(snapshot) {
+      long = (snapshot.val() && snapshot.val().longestWord);
+      average = (snapshot.val() && snapshot.val().avgWord);
+
+      document.getElementById("longestField").innerHTML = long;
+      document.getElementById("longestField").setAttribute("class", "helveticaMedium");
+      document.getElementById("avgLengthField").innerHTML = average;
+      document.getElementById("avgLengthField").setAttribute("class", "helveticaMedium");
+    });
   } else {
     // No user is signed in.
     window.location.href='index.html';
@@ -156,6 +172,23 @@ function main1() {
       // [END_EXCLUDE]
     });
   }
+
+  var user = firebase.auth().currentUser;
+  if (user) {
+  // User is signed in.
+    uid = user.uid;
+  }
+
+  return firebase.database().ref('/users/' + uid).once('value').then(function(snapshot) {
+    long = (snapshot.val() && snapshot.val().longestWord);
+    average = (snapshot.val() && snapshot.val().avgWord);
+
+    document.getElementById("longestField").innerHTML = long;
+    document.getElementById("longestField").setAttribute("class", "helveticaMedium");
+    document.getElementById("avgLengthField").innerHTML = average;
+    document.getElementById("avgLengthField").setAttribute("class", "helveticaMedium");
+  });
+
 }
 
 // logout and segue back to main page via auth listener
@@ -178,15 +211,7 @@ function runThis() {
   });
 }
 
-/*
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    alert("signed in");
-  } else {
-    alert("not signed in");
-  }
-});
-*/
+
 </script>
 </head>
 <html>
@@ -200,19 +225,11 @@ firebase.auth().onAuthStateChanged(function(user) {
 			<table>
 				<tr>
 					<th>LONGEST: </th>
-					<th>N/A</th>
-				</tr>
-				<tr>
-					<th>WINS: </th>
-					<th>0</th>
-				</tr>
-				<tr>
-					<th>LOSSES: </th>
-					<th>0</th>
+					<th id="longestField"></th>
 				</tr>
 				<tr>
 					<th>AVGLENGTH: </th>
-					<th>N/A</th>
+					<th id="avgLengthField"></th>
 				</tr>
 			</table>
 		</p>

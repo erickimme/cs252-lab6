@@ -303,6 +303,12 @@ function getDefinitions(resp, index) {
 		console.log(defArray[i]);
 	}
 
+	if (index == 2) {
+		var output = formatDef(defArray[index]);
+		console.log("HERE");
+		console.log(output);
+	}
+
 	if (defArray.length >= index + 1) {
 		var output = formatDef(defArray[index]);
 		return output;
@@ -315,6 +321,7 @@ function formatDef(rawString) {
 	// trim + format raw string
 	var pos = "";
 	var def = "";
+	console.log(rawString);
 
 	var split = rawString.split("\"\,\"partOfSpeech\"\:\"");
 	var endInd = split[1].indexOf("\"");
@@ -340,6 +347,19 @@ function isValid(word) {
 			wordCoords = [];
 			clearWord();
 		} else {
+			console.log("CHECK");
+			console.log(resp);
+
+			if (resp.includes("\"definitions\"\:\[\]")) {
+				// check if word does exist but definitions do not exist
+				console.log("MY WORD DOES NOT EXIST");
+				alert("\"" + word + "\" is not a valid word, please find a valid English word");
+				word = "";
+				wordCoords = [];
+				clearWord();
+				return;
+			}
+
 			// word does exist, get up to 2 definitions
 			def1 = "";
 			def2 = "";
