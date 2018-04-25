@@ -26,12 +26,11 @@ server.get('/*', function(req, res) {
 });
 
 function getWord(word, res) {
-	unirest.get("https://wordsapiv1.p.mashape.com/words/" + word )
+	unirest.get("https://wordsapiv1.p.mashape.com/words/" + word + "/definitions")
 		.header("X-Mashape-Key", "qgGsAcowYfmsh1HPJGVMvXHOAzpHp19qyavjsnm2Kjvx78TQdl")
 		.header("Accept", "application/json")
 		.end(function (result) {
 			console.log(result.status);
-			console.log("_____________SEPERATE_____________");
 			console.log(result.status, result.headers, result.body);
 			res.send(result);
 	})
