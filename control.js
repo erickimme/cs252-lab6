@@ -237,41 +237,127 @@ function clearPressIfNeeded(x, y) {
 	}
 }
 
+var def1 = "";
+var def2 = "";
+
+function getDefinitions(resp, index) {
+	// get first two definitions from definition string
+	var defArray = resp.split("definition");
+	for (var i = 0; i < defArray.length; i++) {
+		console.log(i);
+		console.log(defArray[i]);
+	}
+
+	if (defArray.length >= index + 1) {
+		var output = formatDef(defArray[index]);
+		return output;
+	} else {
+		return "";
+	}
+}
+
+function formatDef(rawString) {
+	// trim + format raw string
+	var pos = "";
+	var def = "";
+
+	var split = rawString.split("\"\,\"partOfSpeech\"\:\"");
+	var endInd = split[1].indexOf("\"");
+	pos = split[1].substring(0, endInd);
+	def = split[0].substring(3);
+
+	return "(" + pos + ")" + " " + def;
+}
+
 function isValid(word) {
+	var passed = -1;
+
 	fetch("/check?word=" + word).then(function(response){
 		return response.json();
 	}).then(function(response) {
-		console.log(response.body);
-	  	
-	  	if (response.hasOwnProperty('success') && response['success'] == false) {
-	  		// only has message if word not valid
-	  		return false;
-	  	} else {
-	  		// if word was valid
-	  		var pronounciation = response['pronounciation'];
-	  		var def1 = "";
-	  		var def2 = "";
-	  		// go through first two definitions
-	  		var i = 0;
-	  		while (i < 2 && i < response.results.length) {
-	  			if (i == 0) {
-	  				def1 = response.results[0].partOfSpeech + " " + response.results[0].definition;
-	  			} else if (i == 1) {
-					def2 = response.results[1].partOfSpeech + " " + response.results[1].definition;
-	  			}
-	  			i++;
-	  		}
+		//console.log(response.body);
+		var resp = JSON.stringify(response.body);
+		//console.log(resp);
 
-	  		// display pronounciateion + definition(s) + part of speech
-
-	  	}
-	  	
-
-
-
-
-	  	
+		if (resp.includes("\"success\":false")) {
+			// word does not exist
+			console.log("WORD DOES NOT EXIST");
+			alert("\"" + word + "\" is not a valid word, please find a valid English word");
+			word = "";
+			wordCoords = [];
+			clearWord();
+			passed = 0;
+		} else {
+			// word does exist, get up to 2 definitions
+			def1 = "";
+			def2 = "";
+			def1 = getDefinitions(resp, 2);
+			def2 = getDefinitions(resp, 3);
+			
+			document.getElementById("def1").innerHTML = def1;
+	  		document.getElementById("def1").setAttribute("class", "def1 helveticaLarge");
+	  		document.getElementById("def2").innerHTML = def2;
+	  		document.getElementById("def2").setAttribute("class", "def2 helveticaLarge");
+	  		
+	  		nextTurn();
+		}
 	})
+}
+
+function nextTurn() {
+	// change if needed, average word length + longest word
+	numWords++;
+	totalLength += word.length;
+	if (word.length > longestWord.length) {
+		longestWord = word;
+	}
+
+	var avgLength = (totalLength + 0.0)/ numWords;
+	avgLength = avgLength.toFixed(3);
+	console.log("average length: ");
+	console.log(avgLength);
+	console.log("longestWord: ");
+	console.log(longestWord);
+
+	// Change color to dark version for the current color
+	for (var i = 0; i < wordCoords.length; i++) {
+		var coords = wordCoords[i].split(" ");
+		grid[coords[0]][coords[1]].darkenColor(turn);
+	}
+
+	// Check if any of the opponents blocks are not connected
+	// Find connected components that are not linked to each person's base line
+	removeIslands(turn);
+
+	// check if game over
+	if (isGameOver(turn)) {
+		gameOver(turn);
+		return;
+	}
+
+	// switch user + reset word, wordcCoords, wordField
+	if (turn == 1) {
+		turn = 2;
+	} else if(turn == 2){
+		turn = 1;
+	}
+
+	// change color of player and button button highlight
+	if (turn == 1) {
+		document.getElementById("currentTurn").innerHTML = "PLAYER ONE";
+		document.getElementById("currentTurn").setAttribute("class", " turnPos currentTurnOne helveticaLarge");
+		document.getElementById("checkButton").setAttribute("class", "btn checkWordOne checkPos");
+		document.getElementById("cancelButton").setAttribute("class", "btn cancelWordOne cancelPos");
+	} else if (turn == 2) {
+		document.getElementById("currentTurn").innerHTML = "PLAYER TWO";
+		document.getElementById("currentTurn").setAttribute("class", " turnPos currentTurnTwo helveticaLarge");
+		document.getElementById("checkButton").setAttribute("class", "btn checkWordTwo checkPos");
+		document.getElementById("cancelButton").setAttribute("class", "btn cancelWordTwo cancelPos");
+	}
+
+	word = "";
+	wordCoords = [];
+	resetWordField();
 }
 
 // check if word is valid and switch turns if user did enter valid
@@ -313,70 +399,63 @@ function checkWord() {
 	}
 
 	// TODO: change checking: check if word is valid
-	var validWord = isValid(word);
-//	var validWord = true;
+	isValid(word);
 
-	if (validWord) {
-		// change if needed, average word length + longest word
-		numWords++;
-		totalLength += word.length;
-		if (word.length > longestWord.length) {
-			longestWord = word;
-		}
+	// if (validWord) {
+		// // change if needed, average word length + longest word
+		// numWords++;
+		// totalLength += word.length;
+		// if (word.length > longestWord.length) {
+		// 	longestWord = word;
+		// }
 
-		var avgLength = (totalLength + 0.0)/ numWords;
-		avgLength = avgLength.toFixed(3);
-		console.log("average length: ");
-		console.log(avgLength);
-		console.log("longestWord: ");
-		console.log(longestWord);
+		// var avgLength = (totalLength + 0.0)/ numWords;
+		// avgLength = avgLength.toFixed(3);
+		// console.log("average length: ");
+		// console.log(avgLength);
+		// console.log("longestWord: ");
+		// console.log(longestWord);
 
-		// Change color to dark version for the current color
-		for (var i = 0; i < wordCoords.length; i++) {
-			var coords = wordCoords[i].split(" ");
-			grid[coords[0]][coords[1]].darkenColor(turn);
-		}
+		// // Change color to dark version for the current color
+		// for (var i = 0; i < wordCoords.length; i++) {
+		// 	var coords = wordCoords[i].split(" ");
+		// 	grid[coords[0]][coords[1]].darkenColor(turn);
+		// }
 
-		// Check if any of the opponents blocks are not connected
-		// Find connected components that are not linked to each person's base line
-		removeIslands(turn);
+		// // Check if any of the opponents blocks are not connected
+		// // Find connected components that are not linked to each person's base line
+		// removeIslands(turn);
 
-		// // check if game over
-		if (isGameOver(turn)) {
-			gameOver(turn);
-			return;
-		}
+		// // // check if game over
+		// if (isGameOver(turn)) {
+		// 	gameOver(turn);
+		// 	return;
+		// }
 
-		// switch user + reset word, wordcCoords, wordField
-		if (turn == 1) {
-			turn = 2;
-		} else if(turn == 2){
-			turn = 1;
-		}
+		// // switch user + reset word, wordcCoords, wordField
+		// if (turn == 1) {
+		// 	turn = 2;
+		// } else if(turn == 2){
+		// 	turn = 1;
+		// }
 
-		// change color of player and button button highlight
-		if (turn == 1) {
-			document.getElementById("currentTurn").innerHTML = "PLAYER ONE";
-			document.getElementById("currentTurn").setAttribute("class", " turnPos currentTurnOne helveticaLarge");
-			document.getElementById("checkButton").setAttribute("class", "btn checkWordOne checkPos");
-			document.getElementById("cancelButton").setAttribute("class", "btn cancelWordOne cancelPos");
-		} else if (turn == 2) {
-			document.getElementById("currentTurn").innerHTML = "PLAYER TWO";
-			document.getElementById("currentTurn").setAttribute("class", " turnPos currentTurnTwo helveticaLarge");
-			document.getElementById("checkButton").setAttribute("class", "btn checkWordTwo checkPos");
-			document.getElementById("cancelButton").setAttribute("class", "btn cancelWordTwo cancelPos");
-		}
+		// // change color of player and button button highlight
+		// if (turn == 1) {
+		// 	document.getElementById("currentTurn").innerHTML = "PLAYER ONE";
+		// 	document.getElementById("currentTurn").setAttribute("class", " turnPos currentTurnOne helveticaLarge");
+		// 	document.getElementById("checkButton").setAttribute("class", "btn checkWordOne checkPos");
+		// 	document.getElementById("cancelButton").setAttribute("class", "btn cancelWordOne cancelPos");
+		// } else if (turn == 2) {
+		// 	document.getElementById("currentTurn").innerHTML = "PLAYER TWO";
+		// 	document.getElementById("currentTurn").setAttribute("class", " turnPos currentTurnTwo helveticaLarge");
+		// 	document.getElementById("checkButton").setAttribute("class", "btn checkWordTwo checkPos");
+		// 	document.getElementById("cancelButton").setAttribute("class", "btn cancelWordTwo cancelPos");
+		// }
 
-		word = "";
-		wordCoords = [];
-		resetWordField();
-	} else {
-		// if not valid, let user know the word is not valid and erase the highlighed portion
-		alert("\"" + word + "\" is not a valid word, please find a valid English word");
-		word = "";
-		wordCoords = [];
-		clearWord();
-	}
+		// word = "";
+		// wordCoords = [];
+		// resetWordField();
+	//}
 }
 
 // clear previously highlighted if user clicks cancel word
