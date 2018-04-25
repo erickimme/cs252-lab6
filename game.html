@@ -132,10 +132,14 @@
         }
       });
 
-      function writeData(userId, longestWord, avgWord) {
-        firebase.database().ref('users/' + userId).set({
+      function writeData(userId, longestWord, avgWord, wins, losses, totalChars, totalWords) {
+        firebase.database().ref('users/' + userId).update({
           longestWord: longestWord,
-          avgWord : avgWord
+          avgWord : avgWord,
+          wins: wins,
+          losses: losses,
+          totalChars: totalChars,
+          totalWords: totalWords
         });
       }
 

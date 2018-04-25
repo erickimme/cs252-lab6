@@ -238,12 +238,6 @@
   function handleSignUp() {
     var email = document.getElementById('emailField').value;
     var password = document.getElementById('passwordField').value;
-    var username = document.getElementById('usernameField').value;
-
-    if (username.length < 2) {
-      alert('Please enter a username.');
-      return;
-    }
 
     if (email.length < 4) {
       alert('Please enter an email address.');
@@ -254,7 +248,6 @@
       return;
     }
 
-    localStorage.setItem("username", username);
     // Sign in with email and pass.
     // [START createwithemail]
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
@@ -270,17 +263,7 @@
       console.log(error);
       // [END_EXCLUDE]
     });
-    window.location.assign("index.html");
-    alert("Your account has been created! Please proceed to the log in panel.")
     // [END createwithemail]
-  }
-
-  function writeUserData(userId, username,longestWord, avgWord) {
-    firebase.database().ref('users/' + userId).set({
-      username: username,
-      longestWord: longestWord,
-      avgWord : avgWord
-    });
   }
 
   function saveText(text, filename){
