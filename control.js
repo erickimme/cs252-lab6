@@ -146,12 +146,61 @@ function isGameOver(turn) {
 function gameOver(turn) {
 	// handle game over
 	console.log("in win");
-	var avgWord = (totalLength + 0.0)/ numWords;
-	avgWord = avgWord.toFixed(3);
+	var longest, avg, tempTotal, tempWords;
+	alert("before firebase " + uid);
+	// fetch values from database
+	return firebase.database().ref('/users/' + uid).once('value').then(function(snapshot) {
 
-	writeData(uid, longestWord, avgWord);
+		// if database is not initialized
+		var tempLongest = (snapshot.val() && snapshot.val().longestWord);
+		if(tempLongest === null){
+			alert("no longest");
+			longest = longestWord;
+
+			avg = (totalLength + 0.0)/ numWords;
+			avg = avg.toFixed(3);
+
+			tempTotal = totalLength;
+			tempWords = numWords;
+
+			alert("writing data1");
+			writeData(uid, longest, avg, tempTotal, tempWords);
+			prepFinish();
+		}
+
+		// compare against existing values
+		else{
+			alert("longest exists");
+			var tempLongest = (snapshot.val() && snapshot.val().longestWord);
+			if(tempLongest.length < longestWord.length){
+				alert("overwrite longest");
+				longest = longestWord;
+			}
+			else{
+				longest = tempLongest;
+			}
+
+			var currTotalChars = (snapshot.val() && snapshot.val().totalChars);
+			currTotalChars += totalLength;
+
+			var currNumWords = (snapshot.val() && snapshot.val().totalWords);
+			currNumWords += numWords;
+
+			avg = (currTotalChars + 0.0)/ currNumWords;
+			avg = avg.toFixed(3);
+
+			tempTotal = currTotalChars;
+			tempWords = currNumWords;
+
+			alert("writing data2");
+			writeData(uid, longest, avg, tempTotal, tempWords);
+			prepFinish();
+		}
+	 });
+	/*alert("writing data");
+	writeData(uid, longestWord, avgWord, tempTotal, tempWords);
 	// minimize all UI components and display Game Over and return to landing page button
-	prepFinish();
+	prepFinish();*/
 
 }
 
@@ -270,6 +319,8 @@ function formatDef(rawString) {
 }
 
 function isValid(word) {
+	nextTurn();
+	/*
 	var passed = -1;
 
 	fetch("/check?word=" + word).then(function(response){
@@ -301,7 +352,7 @@ function isValid(word) {
 	  		
 	  		nextTurn();
 		}
-	})
+	}) */
 }
 
 function nextTurn() {

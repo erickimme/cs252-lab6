@@ -171,10 +171,10 @@ function runThis() {
     //var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
     var longestWord = (snapshot.val() && snapshot.val().longestWord);
     var avgWord = (snapshot.val() && snapshot.val().avgWord);
-    var wins = (snapshot.val() && snapshot.val().wins);
-    var losses = (snapshot.val() && snapshot.val().losses);
+    var a = (snapshot.val() && snapshot.val().totalChars);
+    var b = (snapshot.val() && snapshot.val().totalWords);
 
-    alert("1: " + longestWord + " 2: " + avgWord + " 3: " + wins + " 4: " + losses);
+    alert("1: " + longestWord + " 2: " + avgWord + " 3: " + a + " 4: " + b);
   });
 }
 
@@ -194,7 +194,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 		<button class="btn1 logOut topright" onclick="logout()"><p class = "helveticaSmall">LOGOUT</p></button>
     <button class="btn3 learn" onclick="window.location.href='learn.html'"><p class = "helveticaVeryLarge">"LEARN"</p></button>
 		<button class="btn2 startGame" onclick="window.location.href='game.html'"><p class = "helveticaVeryLarge">"START"</p></button>
-    <!-- <button onclick="runThis()">Click!</button> -->
+    <!--<button onclick="runThis()">Click!</button>-->
 
 		<text class="stats"><p class="helveticaMedium">"STATS"</text>
 			<table>

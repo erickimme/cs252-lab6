@@ -132,12 +132,10 @@
         }
       });
 
-      function writeData(userId, longestWord, avgWord, wins, losses, totalChars, totalWords) {
+      function writeData(userId, longestWord, avgWord, totalChars, totalWords) {
         firebase.database().ref('users/' + userId).update({
           longestWord: longestWord,
           avgWord : avgWord,
-          wins: wins,
-          losses: losses,
           totalChars: totalChars,
           totalWords: totalWords
         });
@@ -160,6 +158,11 @@
             console.log(error);
             // [END_EXCLUDE]
           });
+        }
+        var user = firebase.auth().currentUser;
+        if (user) {
+        // User is signed in.
+          uid = user.uid;
         }
       }
     </script>
