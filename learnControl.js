@@ -26,7 +26,7 @@ if (document.documentElement.clientWidth > 768) {
             ease: Linear.easeNone
         })
         .setPin("#slidein2")
-//        .addIndicators() // add indicators (requires plugin)
+        //.addIndicators() // add indicators (requires plugin)
         .addTo(controller);
 
     new ScrollMagic.Scene({
@@ -34,7 +34,7 @@ if (document.documentElement.clientWidth > 768) {
             triggerHook: "onLeave",
         })
         .setPin("#slidein3")
-//        .addIndicators() // add indicators (requires plugin)
+       // .addIndicators() // add indicators (requires plugin)
         .addTo(controller);
 
 

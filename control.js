@@ -238,24 +238,40 @@ function clearPressIfNeeded(x, y) {
 }
 
 function isValid(word) {
-	// fetch("https://wordsapiv1.p.mashape.com/words/soliloquy", {
-	// 	headers: {
-	// 		"X-Mashape-Key":"qgGsAcowYfmsh1HPJGVMvXHOAzpHp19qyavjsnm2Kjvx78TQdl",
-	// 		"Accept":"application/json",
-	// 	},
-	// 	"mode":"no-cors"
+	fetch("/check?word=" + word).then(function(response){
+		return response.json();
+	}).then(function(response) {
+		console.log(response.body);
+	  	
+	  	if (response.hasOwnProperty('success') && response['success'] == false) {
+	  		// only has message if word not valid
+	  		return false;
+	  	} else {
+	  		// if word was valid
+	  		var pronounciation = response['pronounciation'];
+	  		var def1 = "";
+	  		var def2 = "";
+	  		// go through first two definitions
+	  		var i = 0;
+	  		while (i < 2 && i < response.results.length) {
+	  			if (i == 0) {
+	  				def1 = response.results[0].partOfSpeech + " " + response.results[0].definition;
+	  			} else if (i == 1) {
+					def2 = response.results[1].partOfSpeech + " " + response.results[1].definition;
+	  			}
+	  			i++;
+	  		}
 
-	// }).then(function(reponse){
-	// 	return response.json();
-	// }).then(function(response) {
-	// 	console.log(response);
-	//   //console.log(response.status, response.headers, response.body);
-	// })
+	  		// display pronounciateion + definition(s) + part of speech
 
-	getWord(word);
-	
+	  	}
+	  	
 
-	return true;
+
+
+
+	  	
+	})
 }
 
 // check if word is valid and switch turns if user did enter valid
@@ -297,8 +313,8 @@ function checkWord() {
 	}
 
 	// TODO: change checking: check if word is valid
-//	var validWord = isValid(word);
-	var validWord = true;
+	var validWord = isValid(word);
+//	var validWord = true;
 
 	if (validWord) {
 		// change if needed, average word length + longest word
