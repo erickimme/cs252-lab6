@@ -9,7 +9,7 @@
 	.form-style{
 	    max-width:400px;
 	    margin:10px auto;
-	    background:#fff;
+	    background:#f2fff0;
 	    border-radius:2px;
 	    padding:2px;
 	}
@@ -28,7 +28,7 @@
   .topleft { position: absolute; top: : 5px; left: 15px; text-align: left;}
 
   .back {
-    background-color: white;
+    background-color: transparent;
     color: black;
   }
 
@@ -67,7 +67,7 @@
 
 	.btn {
         border: none;
-        background-color: inherit;
+        background-color: transparent;
         padding: 12px 12px;
         font-size: 14px;
         cursor: pointer;
@@ -75,12 +75,12 @@
     }
 
   .submitBlue{
-      background-color: white;
+      background-color: transparent;
       color: black;
   }
 
     .submitRed{
-      	background-color: white;
+      	background-color: transparent;
       	color: black;
     }
 
@@ -276,7 +276,7 @@
 </script>
 </head>
 <html>
-	<body onload="main()">
+	<body onload="main()" bgcolor="#f2fff0">
     <p>
       <button class="btn topleft back" onclick="window.location.href='index.html'"><p class="helveticaSmall">BACK</p></button>
     </p>
@@ -284,10 +284,6 @@
 		<p><text id="displayHeader" class="helveticaLarge"></text></p>
 		<form method="post" class="form-style">
 			<div>
-				<!-- <p class="align">
-					<text id="username"></text>
-					<input id ="usernameField" type="text" name="usernameField">
-				</p> -->
 				<p class="align">
 					<br id="optionalNewLine2"><text id="email"></text>
 					<input id="emailField" type="text" name="emailField">

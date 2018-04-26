@@ -36,7 +36,7 @@ function getWord(word, res) {
 	})
 }
 
-var port = 8000;
+var port = 8080;
 server.listen((process.env.PORT || port), function() {
   console.log('server listening on port ' + port);
 });
